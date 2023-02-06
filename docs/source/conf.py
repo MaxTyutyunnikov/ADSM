@@ -68,7 +68,7 @@ html_static_path = ['_static']
 latex_engine = 'xelatex'
 latex_elements = {
     'fontpkg': r'''
-\documentclass[a4paper]{article}
+%\documentclass[a4paper]{article}
 \usepackage[12pt]{extsizes}
 \usepackage[margin=1.0in]{geometry}
 \usepackage{polyglossia}
