@@ -17,8 +17,8 @@
 
 Обсуждение что лучше, а что хуже выходит за рамки данной статьи.
 
-    .. ffigure:: https://fs.linkmeup.ru/images/adsm/1/1/hypervisors_types.gif
-           :width: 600 px
+    .. figure:: https://fs.linkmeup.ru/images/adsm/1/1/hypervisors_types.gif
+           :width: 800 px
            :align: center
 
 Производители железа также должны были сделать свою часть работы, дабы обеспечить приемлемую производительность.
