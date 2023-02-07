@@ -102,6 +102,7 @@ epub_author = 'eucariot'
 epub_cover = ('cover.png', 'epub_cover_template.html')
 # epub_publisher = 'https://adsm.readthedocs.io/'
 epub_scheme = 'url'
+epub_language = 'ru'
 # epub_identifier = 'https://adsm.readthedocs.io/'
 # epub_pre_files = [('index.html', 'Автоматизация Для Самых Маленьких')]
 # epub_post_files = [('install.html', 'Installing Sphinx'),('develop.html', 'Sphinx development')]
