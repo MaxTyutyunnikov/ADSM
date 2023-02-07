@@ -17,7 +17,7 @@
 
 Обсуждение что лучше, а что хуже выходит за рамки данной статьи.
 
-    .. figure:: https://fs.linkmeup.ru/images/adsm/1/1/hypervisors_types.gif
+    .. ffigure:: https://fs.linkmeup.ru/images/adsm/1/1/hypervisors_types.gif
            :width: 600 px
            :align: center
 
