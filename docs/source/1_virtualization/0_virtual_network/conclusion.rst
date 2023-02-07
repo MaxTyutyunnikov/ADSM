@@ -1,3 +1,6 @@
+.. meta::
+   :http-equiv=Content-Type: text/html; charset=utf-8
+
 Заключение
 ==========
 
@@ -44,4 +47,3 @@
 * `Валентину Синицыну <https://www.linkedin.com/in/valentine-sinitsyn-b8b3a23a/>`_- моему коллеге и эксперту в области Tungsten Fabric . За комментарии и правки.
 * `Артёму Чернобаю <http://illustrators.ru/users/rabbits_manufactory>`_ - иллюстратору linkmeup. За КДПВ.
 * Александру Лимонову. За мем "automato".
-

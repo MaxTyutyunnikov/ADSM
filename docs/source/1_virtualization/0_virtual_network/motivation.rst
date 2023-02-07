@@ -1,3 +1,6 @@
+.. meta::
+   :http-equiv=Content-Type: text/html; charset=utf-8
+
 Причины
 =======
 
@@ -21,4 +24,3 @@
 .. figure:: https://fs.linkmeup.ru/images/adsm/1/dc.jpg
        :width: 800 px
        :align: center
-

@@ -97,7 +97,7 @@ latex_elements = {
 # -- Options for epub output -------------------------------------------------
 
 epub_theme = 'epub'
-epub_basename = 'Автоматизация Для Самых Маленьких'
+epub_basename = 'ADSM'
 epub_author = 'eucariot'
 epub_cover = ('cover.png', 'epub_cover_template.html')
 # epub_publisher = 'https://adsm.readthedocs.io/'

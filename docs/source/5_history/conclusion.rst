@@ -1,3 +1,6 @@
+.. meta::
+   :http-equiv=Content-Type: text/html; charset=utf-8
+
 Заключение
 ==========
 
@@ -17,4 +20,3 @@
     
 * `Александру Лимонову <https://www.linkedin.com/mwlite/in/horseinthesky>`_ за несколько идеологических замечаний и исправлений фактических ошибок.
     
-

@@ -1,3 +1,6 @@
+.. meta::
+   :http-equiv=Content-Type: text/html; charset=utf-8
+
 Типы виртуальных ресурсов - compute, storage, network
 =====================================================
 
