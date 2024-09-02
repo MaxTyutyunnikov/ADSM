@@ -20,10 +20,10 @@
 project = 'ADSM'
 copyright = '2021, eucariot'
 author = 'eucariot'
+version = '0.1.0'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.0'
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -61,3 +61,54 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# -- Options for LaTeX output ---------------------------------------------
+
+
+latex_engine = 'xelatex'
+latex_elements = {
+    'fontpkg': r'''
+%\documentclass[a4paper]{article}
+\usepackage[12pt]{extsizes}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{polyglossia}
+\setcounter{secnumdepth}{0}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+\setmainfont{DejaVu Sans}
+\setsansfont{DejaVu Serif}
+\setmonofont{DejaVu Sans Mono}
+''',
+    'preamble': r'''
+\setcounter{tocdepth}{2}
+\usepackage[titles]{tocloft}
+\cftsetpnumwidth {1.25cm}\cftsetrmarg{1.5cm}
+\setlength{\cftchapnumwidth}{0.75cm}
+\setlength{\cftsecindent}{\cftchapnumwidth}
+\setlength{\cftsecnumwidth}{1.25cm}
+''',
+    'fncychap': r'\usepackage[Bjornstrup]{fncychap}',
+    'printindex': r'\footnotesize\raggedright\printindex',
+    'figure_align': 'H',
+}
+
+# -- Options for epub output -------------------------------------------------
+
+epub_theme = 'epub'
+epub_basename = 'ADSM'
+epub_author = 'eucariot'
+epub_cover = ('cover.png', 'epub_cover_template.html')
+# epub_publisher = 'https://adsm.readthedocs.io/'
+epub_scheme = 'url'
+epub_language = 'ru'
+# epub_identifier = 'https://adsm.readthedocs.io/'
+# epub_pre_files = [('index.html', 'Автоматизация Для Самых Маленьких')]
+# epub_post_files = [('install.html', 'Installing Sphinx'),('develop.html', 'Sphinx development')]
+# epub_exclude_files = ['_static/README.md']
+epub_fix_images = False
+epub_max_image_width = 0
+epub_show_urls = 'inline'
+epub_use_index = False
+# epub_guide = (('toc', 'index.html', 'Table of Contents'),)

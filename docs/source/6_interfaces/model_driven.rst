@@ -1,3 +1,6 @@
+.. meta::
+   :http-equiv=Content-Type: text/html; charset=utf-8
+
 Model Driven Programmability
 ============================
 
@@ -5,7 +8,7 @@ Model Driven Programmability
 
 Давайте вернёмся к `4-й части АДСМ <https://adsm.readthedocs.io/ru/latest/4_lifecycle/index.html>`_, где я использовал позаимствованную у Дмитрия Тесля картинку.
 
-    .. figure:: https://dteslya.engineer/images/2020-10-netdevops-pipeline.png
+    .. figure:: https://dteslya.engineer/network-automation-101/images/2020-10-netdevops-pipeline.png
     
     `Источник: dteslya.engineer/network_automaiton_101 <https://dteslya.engineer/network_automaiton_101/>`_
 

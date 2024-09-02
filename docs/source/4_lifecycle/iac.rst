@@ -1,3 +1,6 @@
+.. meta::
+   :http-equiv=Content-Type: text/html; charset=utf-8
+
 IaC
 ===
 
@@ -16,7 +19,7 @@ IaC
 
 | На схеме ниже изображена упрощённая процедура того, как изменения появляются на сети в парадигме IaC.
     
-    .. figure:: https://dteslya.engineer/images/2020-10-netdevops-pipeline.png
+    .. figure:: https://dteslya.engineer/network-automation-101/images/2020-10-netdevops-pipeline.png
            :width: 900
            :align: center
 

@@ -1,3 +1,6 @@
+.. meta::
+   :http-equiv=Content-Type: text/html; charset=utf-8
+
 NETCONF Again
 =============
 
@@ -1122,7 +1125,7 @@ Configuration Management
 
 Как бы это могло выглядеть я уже показывал в `предыдущем выпуске АДСМ <https://adsm.readthedocs.io/ru/latest/4_lifecycle/index.html>`_.
 
-    .. figure:: https://dteslya.engineer/images/2020-10-netdevops-pipeline.png
+    .. figure:: https://dteslya.engineer/network-automation-101/images/2020-10-netdevops-pipeline.png
 
     `Источник: dteslya.engineer/network_automaiton_101/ <https://dteslya.engineer/network_automaiton_101/>`_
 

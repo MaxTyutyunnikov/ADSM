@@ -1,3 +1,6 @@
+.. meta::
+   :http-equiv=Content-Type: text/html; charset=utf-8
+
 Основы виртуализации
 ====================
 
@@ -20,19 +23,3 @@
    vitual_switching.rst
    tools.rst
    conclusion.rst
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
