@@ -1,0 +1,1070 @@
+<?xml version="1.0"?>
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta name="dtb:uid" content="unknown"/>
+    <meta name="dtb:depth" content="3"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>ADSM</text>
+  </docTitle>
+  <navMap>    
+    <navPoint id="navPoint1" playOrder="1">
+      <navLabel>
+        <text>Автоматизация для самых маленьких</text>
+      </navLabel>
+      <content src="index.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint2" playOrder="2">
+      <navLabel>
+        <text>Часть 0. Планирование</text>
+      </navLabel>
+      <content src="0_planning/planning.xhtml" />  
+      <navPoint id="navPoint3" playOrder="2">
+        <navLabel>
+          <text>Часть 0. Планирование</text>
+        </navLabel>
+        <content src="0_planning/planning.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint4" playOrder="3">
+        <navLabel>
+          <text>Цели</text>
+        </navLabel>
+        <content src="0_planning/goals.xhtml" />  
+        <navPoint id="navPoint5" playOrder="3">
+          <navLabel>
+            <text>Цели</text>
+          </navLabel>
+          <content src="0_planning/goals.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint6" playOrder="4">
+          <navLabel>
+            <text>Сеть - как единый организм</text>
+          </navLabel>
+          <content src="0_planning/goals.xhtml#id2" />  
+        </navPoint>
+        <navPoint id="navPoint7" playOrder="5">
+          <navLabel>
+            <text>Тестирование конфигурации</text>
+          </navLabel>
+          <content src="0_planning/goals.xhtml#id3" />  
+        </navPoint>
+        <navPoint id="navPoint8" playOrder="6">
+          <navLabel>
+            <text>Версионирование</text>
+          </navLabel>
+          <content src="0_planning/goals.xhtml#id5" />  
+        </navPoint>
+        <navPoint id="navPoint9" playOrder="7">
+          <navLabel>
+            <text>Мониторинг и самовосстановление сервисов</text>
+          </navLabel>
+          <content src="0_planning/goals.xhtml#id7" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint10" playOrder="8">
+        <navLabel>
+          <text>Средства</text>
+        </navLabel>
+        <content src="0_planning/tools.xhtml" />  
+        <navPoint id="navPoint11" playOrder="8">
+          <navLabel>
+            <text>Средства</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint12" playOrder="9">
+          <navLabel>
+            <text>Компонент 1. Инвентарная система</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#id2" />  
+        </navPoint>
+        <navPoint id="navPoint13" playOrder="10">
+          <navLabel>
+            <text>Компонент 2. Система управления IP-пространством</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#ip" />  
+        </navPoint>
+        <navPoint id="navPoint14" playOrder="11">
+          <navLabel>
+            <text>Компонент 3. Система описания сетевых сервисов</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#id3" />  
+        </navPoint>
+        <navPoint id="navPoint15" playOrder="12">
+          <navLabel>
+            <text>Компонент 4. Механизм инициализации устройства</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#id4" />  
+        </navPoint>
+        <navPoint id="navPoint16" playOrder="13">
+          <navLabel>
+            <text>Компонент 5. Вендор-агностик конфигурационная модель</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#id5" />  
+        </navPoint>
+        <navPoint id="navPoint17" playOrder="14">
+          <navLabel>
+            <text>Компонент 6. Вендор-интерфейс специфичный драйвер</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#id6" />  
+        </navPoint>
+        <navPoint id="navPoint18" playOrder="15">
+          <navLabel>
+            <text>Компонент 7. Механизм доставки конфигурации на устройство</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#id7" />  
+        </navPoint>
+        <navPoint id="navPoint19" playOrder="16">
+          <navLabel>
+            <text>Компонент 8. CI/CD</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#ci-cd" />  
+        </navPoint>
+        <navPoint id="navPoint20" playOrder="17">
+          <navLabel>
+            <text>Компонент 9. Система резервного копирования и поиска отклонений</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#id8" />  
+        </navPoint>
+        <navPoint id="navPoint21" playOrder="18">
+          <navLabel>
+            <text>Компонент 10. Система мониторинга</text>
+          </navLabel>
+          <content src="0_planning/tools.xhtml#id9" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint22" playOrder="19">
+        <navLabel>
+          <text>Заключение</text>
+        </navLabel>
+        <content src="0_planning/conclusion.xhtml" />  
+        <navPoint id="navPoint23" playOrder="19">
+          <navLabel>
+            <text>Заключение</text>
+          </navLabel>
+          <content src="0_planning/conclusion.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint24" playOrder="20">
+          <navLabel>
+            <text>Полезные ссылки</text>
+          </navLabel>
+          <content src="0_planning/conclusion.xhtml#id2" />  
+        </navPoint>
+        <navPoint id="navPoint25" playOrder="21">
+          <navLabel>
+            <text>Спасибы</text>
+          </navLabel>
+          <content src="0_planning/conclusion.xhtml#id4" />  
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint26" playOrder="22">
+      <navLabel>
+        <text>Часть 1. Виртуализация</text>
+      </navLabel>
+      <content src="1_virtualization/index.xhtml" />  
+      <navPoint id="navPoint27" playOrder="22">
+        <navLabel>
+          <text>Часть 1. Виртуализация</text>
+        </navLabel>
+        <content src="1_virtualization/index.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint28" playOrder="23">
+        <navLabel>
+          <text>Виртуализация сети</text>
+        </navLabel>
+        <content src="1_virtualization/0_virtual_network/index.xhtml" />  
+        <navPoint id="navPoint29" playOrder="23">
+          <navLabel>
+            <text>Виртуализация сети</text>
+          </navLabel>
+          <content src="1_virtualization/0_virtual_network/index.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint30" playOrder="24">
+          <navLabel>
+            <text>Причины</text>
+          </navLabel>
+          <content src="1_virtualization/0_virtual_network/motivation.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint31" playOrder="25">
+          <navLabel>
+            <text>Терминология</text>
+          </navLabel>
+          <content src="1_virtualization/0_virtual_network/terminology.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint32" playOrder="26">
+          <navLabel>
+            <text>Underlay</text>
+          </navLabel>
+          <content src="1_virtualization/0_virtual_network/underlay.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint33" playOrder="27">
+          <navLabel>
+            <text>Overlay</text>
+          </navLabel>
+          <content src="1_virtualization/0_virtual_network/overlay.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint34" playOrder="28">
+          <navLabel>
+            <text>FAQ</text>
+          </navLabel>
+          <content src="1_virtualization/0_virtual_network/faq.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint35" playOrder="29">
+          <navLabel>
+            <text>Заключение</text>
+          </navLabel>
+          <content src="1_virtualization/0_virtual_network/conclusion.xhtml" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint36" playOrder="30">
+        <navLabel>
+          <text>Основы виртуализации</text>
+        </navLabel>
+        <content src="1_virtualization/1_virtualization_basics/index.xhtml" />  
+        <navPoint id="navPoint37" playOrder="30">
+          <navLabel>
+            <text>Основы виртуализации</text>
+          </navLabel>
+          <content src="1_virtualization/1_virtualization_basics/index.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint38" playOrder="31">
+          <navLabel>
+            <text>Введение и краткая история виртуализации</text>
+          </navLabel>
+          <content src="1_virtualization/1_virtualization_basics/history.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint39" playOrder="32">
+          <navLabel>
+            <text>Типы виртуальных ресурсов - compute, storage, network</text>
+          </navLabel>
+          <content src="1_virtualization/1_virtualization_basics/resource_types.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint40" playOrder="33">
+          <navLabel>
+            <text>Виртуальная коммутация</text>
+          </navLabel>
+          <content src="1_virtualization/1_virtualization_basics/vitual_switching.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint41" playOrder="34">
+          <navLabel>
+            <text>Инструменты виртуализации - libvirt, virsh и прочее</text>
+          </navLabel>
+          <content src="1_virtualization/1_virtualization_basics/tools.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint42" playOrder="35">
+          <navLabel>
+            <text>Заключение</text>
+          </navLabel>
+          <content src="1_virtualization/1_virtualization_basics/conclusion.xhtml" />  
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint43" playOrder="36">
+      <navLabel>
+        <text>Часть 2. Дизайн сети</text>
+      </navLabel>
+      <content src="2_network_design/index.xhtml" />  
+      <navPoint id="navPoint44" playOrder="36">
+        <navLabel>
+          <text>Часть 2. Дизайн сети</text>
+        </navLabel>
+        <content src="2_network_design/index.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint45" playOrder="37">
+        <navLabel>
+          <text>Физическая Топология</text>
+        </navLabel>
+        <content src="2_network_design/topology.xhtml" />  
+        <navPoint id="navPoint46" playOrder="37">
+          <navLabel>
+            <text>Физическая Топология</text>
+          </navLabel>
+          <content src="2_network_design/topology.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint47" playOrder="38">
+          <navLabel>
+            <text>Локации</text>
+          </navLabel>
+          <content src="2_network_design/topology.xhtml#id2" />  
+        </navPoint>
+        <navPoint id="navPoint48" playOrder="39">
+          <navLabel>
+            <text>Внутри ДЦ (Intra-DC)</text>
+          </navLabel>
+          <content src="2_network_design/topology.xhtml#intra-dc" />  
+        </navPoint>
+        <navPoint id="navPoint49" playOrder="40">
+          <navLabel>
+            <text>DCI - Data Center Interconnect (Inter-DC)</text>
+          </navLabel>
+          <content src="2_network_design/topology.xhtml#dci-data-center-interconnect-inter-dc" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint50" playOrder="41">
+        <navLabel>
+          <text>Маршрутизация</text>
+        </navLabel>
+        <content src="2_network_design/routing.xhtml" />  
+        <navPoint id="navPoint51" playOrder="41">
+          <navLabel>
+            <text>Маршрутизация</text>
+          </navLabel>
+          <content src="2_network_design/routing.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint52" playOrder="42">
+          <navLabel>
+            <text>Политики маршрутизации</text>
+          </navLabel>
+          <content src="2_network_design/routing.xhtml#id3" />  
+        </navPoint>
+        <navPoint id="navPoint53" playOrder="43">
+          <navLabel>
+            <text>BGP ASN</text>
+          </navLabel>
+          <content src="2_network_design/routing.xhtml#bgp-asn" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint54" playOrder="44">
+        <navLabel>
+          <text>IP-план</text>
+        </navLabel>
+        <content src="2_network_design/ip_plan.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint55" playOrder="45">
+        <navLabel>
+          <text>Лаба</text>
+        </navLabel>
+        <content src="2_network_design/lab.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint56" playOrder="46">
+        <navLabel>
+          <text>Заключение</text>
+        </navLabel>
+        <content src="2_network_design/conclusion.xhtml" />  
+        <navPoint id="navPoint57" playOrder="46">
+          <navLabel>
+            <text>Заключение</text>
+          </navLabel>
+          <content src="2_network_design/conclusion.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint58" playOrder="47">
+          <navLabel>
+            <text>Спасибы</text>
+          </navLabel>
+          <content src="2_network_design/conclusion.xhtml#id3" />  
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint59" playOrder="48">
+      <navLabel>
+        <text>Часть 3. IPAM/DCIM-системы</text>
+      </navLabel>
+      <content src="3_ipam_dcim/index.xhtml" />  
+      <navPoint id="navPoint60" playOrder="48">
+        <navLabel>
+          <text>Часть 3. IPAM/DCIM-системы</text>
+        </navLabel>
+        <content src="3_ipam_dcim/index.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint61" playOrder="49">
+        <navLabel>
+          <text>Архитектура системы</text>
+        </navLabel>
+        <content src="3_ipam_dcim/architecture.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint62" playOrder="50">
+        <navLabel>
+          <text>Схема данных NetBox</text>
+        </navLabel>
+        <content src="3_ipam_dcim/scheme.xhtml" />  
+        <navPoint id="navPoint63" playOrder="50">
+          <navLabel>
+            <text>Схема данных NetBox</text>
+          </navLabel>
+          <content src="3_ipam_dcim/scheme.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint64" playOrder="51">
+          <navLabel>
+            <text>DCIM</text>
+          </navLabel>
+          <content src="3_ipam_dcim/scheme.xhtml#dcim" />  
+        </navPoint>
+        <navPoint id="navPoint65" playOrder="52">
+          <navLabel>
+            <text>IPAM</text>
+          </navLabel>
+          <content src="3_ipam_dcim/scheme.xhtml#ipam" />  
+        </navPoint>
+        <navPoint id="navPoint66" playOrder="53">
+          <navLabel>
+            <text>Виртуализация</text>
+          </navLabel>
+          <content src="3_ipam_dcim/scheme.xhtml#id21" />  
+        </navPoint>
+        <navPoint id="navPoint67" playOrder="54">
+          <navLabel>
+            <text>Дополнительные приятные вещи</text>
+          </navLabel>
+          <content src="3_ipam_dcim/scheme.xhtml#id22" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint68" playOrder="55">
+        <navLabel>
+          <text>Некоторые нюансы установки NetBox</text>
+        </navLabel>
+        <content src="3_ipam_dcim/installation.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint69" playOrder="56">
+        <navLabel>
+          <text>Немного о PostgreSQL</text>
+        </navLabel>
+        <content src="3_ipam_dcim/postgresql.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint70" playOrder="57">
+        <navLabel>
+          <text>RESTful API</text>
+        </navLabel>
+        <content src="3_ipam_dcim/restful/index.xhtml" />  
+        <navPoint id="navPoint71" playOrder="57">
+          <navLabel>
+            <text>RESTful API</text>
+          </navLabel>
+          <content src="3_ipam_dcim/restful/index.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint72" playOrder="58">
+          <navLabel>
+            <text>REST, RESTful, API</text>
+          </navLabel>
+          <content src="3_ipam_dcim/restful/rest.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint73" playOrder="59">
+          <navLabel>
+            <text>Структура сообщений HTTP</text>
+          </navLabel>
+          <content src="3_ipam_dcim/restful/messages.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint74" playOrder="60">
+          <navLabel>
+            <text>Методы</text>
+          </navLabel>
+          <content src="3_ipam_dcim/restful/methods.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint75" playOrder="61">
+          <navLabel>
+            <text>Способы работы с RESTful API</text>
+          </navLabel>
+          <content src="3_ipam_dcim/restful/ways.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint76" playOrder="62">
+          <navLabel>
+            <text>Заключение</text>
+          </navLabel>
+          <content src="3_ipam_dcim/restful/conclusion.xhtml" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint77" playOrder="63">
+        <navLabel>
+          <text>Заключение</text>
+        </navLabel>
+        <content src="3_ipam_dcim/conclusion.xhtml" />  
+        <navPoint id="navPoint78" playOrder="63">
+          <navLabel>
+            <text>Заключение</text>
+          </navLabel>
+          <content src="3_ipam_dcim/conclusion.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint79" playOrder="64">
+          <navLabel>
+            <text>Полезные ссылки</text>
+          </navLabel>
+          <content src="3_ipam_dcim/conclusion.xhtml#id3" />  
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint80" playOrder="65">
+      <navLabel>
+        <text>Часть 4. Архитектура системы автоматизации</text>
+      </navLabel>
+      <content src="4_lifecycle/index.xhtml" />  
+      <navPoint id="navPoint81" playOrder="65">
+        <navLabel>
+          <text>Часть 4. Архитектура системы автоматизации</text>
+        </navLabel>
+        <content src="4_lifecycle/index.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint82" playOrder="66">
+        <navLabel>
+          <text>Общий взгляд на жизненный цикл оборудования</text>
+        </navLabel>
+        <content src="4_lifecycle/lifecycle.xhtml" />  
+        <navPoint id="navPoint83" playOrder="66">
+          <navLabel>
+            <text>Общий взгляд на жизненный цикл оборудования</text>
+          </navLabel>
+          <content src="4_lifecycle/lifecycle.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint84" playOrder="67">
+          <navLabel>
+            <text>Day0</text>
+          </navLabel>
+          <content src="4_lifecycle/lifecycle.xhtml#day0" />  
+        </navPoint>
+        <navPoint id="navPoint85" playOrder="68">
+          <navLabel>
+            <text>Day 1</text>
+          </navLabel>
+          <content src="4_lifecycle/lifecycle.xhtml#day-1" />  
+        </navPoint>
+        <navPoint id="navPoint86" playOrder="69">
+          <navLabel>
+            <text>Day N</text>
+          </navLabel>
+          <content src="4_lifecycle/lifecycle.xhtml#day-n" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint87" playOrder="70">
+        <navLabel>
+          <text>IaC</text>
+        </navLabel>
+        <content src="4_lifecycle/iac.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint88" playOrder="71">
+        <navLabel>
+          <text>Система автоматизации с высоты птичьего полёта</text>
+        </navLabel>
+        <content src="4_lifecycle/architecture.xhtml" />  
+        <navPoint id="navPoint89" playOrder="71">
+          <navLabel>
+            <text>Система автоматизации с высоты птичьего полёта</text>
+          </navLabel>
+          <content src="4_lifecycle/architecture.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint90" playOrder="72">
+          <navLabel>
+            <text>Характеристики системы</text>
+          </navLabel>
+          <content src="4_lifecycle/architecture.xhtml#id2" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint91" playOrder="73">
+        <navLabel>
+          <text>Сценарии</text>
+        </navLabel>
+        <content src="4_lifecycle/scenarios.xhtml" />  
+        <navPoint id="navPoint92" playOrder="73">
+          <navLabel>
+            <text>Сценарии</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint93" playOrder="74">
+          <navLabel>
+            <text>0. Проверка сети</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml#id2" />  
+        </navPoint>
+        <navPoint id="navPoint94" playOrder="75">
+          <navLabel>
+            <text>1. Ввод нового оборудования</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml#id3" />  
+        </navPoint>
+        <navPoint id="navPoint95" playOrder="76">
+          <navLabel>
+            <text>2. Переконфигурация из-за изменений переменных в инвентарной системе</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml#id4" />  
+        </navPoint>
+        <navPoint id="navPoint96" playOrder="77">
+          <navLabel>
+            <text>3. Переконфигурация из-за изменения дизайна</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml#id5" />  
+        </navPoint>
+        <navPoint id="navPoint97" playOrder="78">
+          <navLabel>
+            <text>4. Сбор информации с устройств</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml#id6" />  
+        </navPoint>
+        <navPoint id="navPoint98" playOrder="79">
+          <navLabel>
+            <text>5. Снятие и возврат нагрузки</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml#id7" />  
+        </navPoint>
+        <navPoint id="navPoint99" playOrder="80">
+          <navLabel>
+            <text>6. Обновление ПО</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml#id8" />  
+        </navPoint>
+        <navPoint id="navPoint100" playOrder="81">
+          <navLabel>
+            <text>7. Удаление устройства</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml#id9" />  
+        </navPoint>
+        <navPoint id="navPoint101" playOrder="82">
+          <navLabel>
+            <text>8. Замена устройства</text>
+          </navLabel>
+          <content src="4_lifecycle/scenarios.xhtml#id10" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint102" playOrder="83">
+        <navLabel>
+          <text>Полезные ссылки</text>
+        </navLabel>
+        <content src="4_lifecycle/links.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint103" playOrder="84">
+        <navLabel>
+          <text>Заключение</text>
+        </navLabel>
+        <content src="4_lifecycle/conclusion.xhtml" />  
+        <navPoint id="navPoint104" playOrder="84">
+          <navLabel>
+            <text>Заключение</text>
+          </navLabel>
+          <content src="4_lifecycle/conclusion.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint105" playOrder="85">
+          <navLabel>
+            <text>Спасибы</text>
+          </navLabel>
+          <content src="4_lifecycle/conclusion.xhtml#id3" />  
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint106" playOrder="86">
+      <navLabel>
+        <text>Часть 5. История сетевой автоматизации</text>
+      </navLabel>
+      <content src="5_history/index.xhtml" />  
+      <navPoint id="navPoint107" playOrder="86">
+        <navLabel>
+          <text>Часть 5. История сетевой автоматизации</text>
+        </navLabel>
+        <content src="5_history/index.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint108" playOrder="87">
+        <navLabel>
+          <text>One CLI to rule them all</text>
+        </navLabel>
+        <content src="5_history/cli.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint109" playOrder="88">
+        <navLabel>
+          <text>SNMP - и не simple, и не management, и не short term</text>
+        </navLabel>
+        <content src="5_history/snmp.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint110" playOrder="89">
+        <navLabel>
+          <text>API</text>
+        </navLabel>
+        <content src="5_history/api_rpc.xhtml" />  
+        <navPoint id="navPoint111" playOrder="89">
+          <navLabel>
+            <text>API</text>
+          </navLabel>
+          <content src="5_history/api_rpc.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint112" playOrder="90">
+          <navLabel>
+            <text>RPC - Remote Procedure Call</text>
+          </navLabel>
+          <content src="5_history/api_rpc.xhtml#rpc-remote-procedure-call" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint113" playOrder="91">
+        <navLabel>
+          <text>NETCONF</text>
+        </navLabel>
+        <content src="5_history/netconf.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint114" playOrder="92">
+        <navLabel>
+          <text>RESTCONF</text>
+        </navLabel>
+        <content src="5_history/restconf.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint115" playOrder="93">
+        <navLabel>
+          <text>Модели и языки</text>
+        </navLabel>
+        <content src="5_history/models.xhtml" />  
+        <navPoint id="navPoint116" playOrder="93">
+          <navLabel>
+            <text>Модели и языки</text>
+          </navLabel>
+          <content src="5_history/models.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint117" playOrder="94">
+          <navLabel>
+            <text>YANG, который (по-)меняет мир</text>
+          </navLabel>
+          <content src="5_history/models.xhtml#yang" />  
+        </navPoint>
+        <navPoint id="navPoint118" playOrder="95">
+          <navLabel>
+            <text>Виды моделей</text>
+          </navLabel>
+          <content src="5_history/models.xhtml#id3" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint119" playOrder="96">
+        <navLabel>
+          <text>gRPC/gNMI</text>
+        </navLabel>
+        <content src="5_history/grpc.xhtml" />  
+        <navPoint id="navPoint120" playOrder="96">
+          <navLabel>
+            <text>gRPC/gNMI</text>
+          </navLabel>
+          <content src="5_history/grpc.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint121" playOrder="97">
+          <navLabel>
+            <text>gRPC</text>
+          </navLabel>
+          <content src="5_history/grpc.xhtml#id1" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint122" playOrder="98">
+        <navLabel>
+          <text>Настоящее сетевой автоматизации</text>
+        </navLabel>
+        <content src="5_history/nowdays.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint123" playOrder="99">
+        <navLabel>
+          <text>Видимое будущее</text>
+        </navLabel>
+        <content src="5_history/future.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint124" playOrder="100">
+        <navLabel>
+          <text>Шаг за горизонт</text>
+        </navLabel>
+        <content src="5_history/horizon.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint125" playOrder="101">
+        <navLabel>
+          <text>Полезные ссылки</text>
+        </navLabel>
+        <content src="5_history/links.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint126" playOrder="102">
+        <navLabel>
+          <text>Заключение</text>
+        </navLabel>
+        <content src="5_history/conclusion.xhtml" />  
+        <navPoint id="navPoint127" playOrder="102">
+          <navLabel>
+            <text>Заключение</text>
+          </navLabel>
+          <content src="5_history/conclusion.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint128" playOrder="103">
+          <navLabel>
+            <text>Благодарности</text>
+          </navLabel>
+          <content src="5_history/conclusion.xhtml#id3" />  
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint129" playOrder="104">
+      <navLabel>
+        <text>Часть 6. Интерфейсы взаимодействия с сетевым устройством</text>
+      </navLabel>
+      <content src="6_interfaces/index.xhtml" />  
+      <navPoint id="navPoint130" playOrder="104">
+        <navLabel>
+          <text>Часть 6. Интерфейсы взаимодействия с сетевым устройством</text>
+        </navLabel>
+        <content src="6_interfaces/index.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint131" playOrder="105">
+        <navLabel>
+          <text>CLI - Command Line Interface</text>
+        </navLabel>
+        <content src="6_interfaces/cli.xhtml" />  
+        <navPoint id="navPoint132" playOrder="105">
+          <navLabel>
+            <text>CLI - Command Line Interface</text>
+          </navLabel>
+          <content src="6_interfaces/cli.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint133" playOrder="106">
+          <navLabel>
+            <text>9 грехов CLI</text>
+          </navLabel>
+          <content src="6_interfaces/cli.xhtml#cli" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint134" playOrder="107">
+        <navLabel>
+          <text>Концепция RPC - Russian Pravoslavnaya Church</text>
+        </navLabel>
+        <content src="6_interfaces/rpc.xhtml" />  
+        <navPoint id="navPoint135" playOrder="107">
+          <navLabel>
+            <text>Концепция RPC - Russian Pravoslavnaya Church</text>
+          </navLabel>
+          <content src="6_interfaces/rpc.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint136" playOrder="108">
+          <navLabel>
+            <text>Пример</text>
+          </navLabel>
+          <content src="6_interfaces/rpc.xhtml#id1" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint137" playOrder="109">
+        <navLabel>
+          <text>NETCONF</text>
+        </navLabel>
+        <content src="6_interfaces/netconf.xhtml" />  
+        <navPoint id="navPoint138" playOrder="109">
+          <navLabel>
+            <text>NETCONF</text>
+          </navLabel>
+          <content src="6_interfaces/netconf.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint139" playOrder="110">
+          <navLabel>
+            <text>NETCONF и его команды</text>
+          </navLabel>
+          <content src="6_interfaces/netconf.xhtml#id1" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint140" playOrder="111">
+        <navLabel>
+          <text>&lt;XML&gt;</text>
+        </navLabel>
+        <content src="6_interfaces/xml.xhtml" />  
+        <navPoint id="navPoint141" playOrder="111">
+          <navLabel>
+            <text>&lt;XML&gt;</text>
+          </navLabel>
+          <content src="6_interfaces/xml.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint142" playOrder="112">
+          <navLabel>
+            <text>XML Prolog</text>
+          </navLabel>
+          <content src="6_interfaces/xml.xhtml#xml-prolog" />  
+        </navPoint>
+        <navPoint id="navPoint143" playOrder="113">
+          <navLabel>
+            <text>Дерево элементов</text>
+          </navLabel>
+          <content src="6_interfaces/xml.xhtml#id3" />  
+        </navPoint>
+        <navPoint id="navPoint144" playOrder="114">
+          <navLabel>
+            <text>Атрибуты</text>
+          </navLabel>
+          <content src="6_interfaces/xml.xhtml#id4" />  
+        </navPoint>
+        <navPoint id="navPoint145" playOrder="115">
+          <navLabel>
+            <text>Namespaces</text>
+          </navLabel>
+          <content src="6_interfaces/xml.xhtml#namespaces" />  
+        </navPoint>
+        <navPoint id="navPoint146" playOrder="116">
+          <navLabel>
+            <text>Xpath - XML Path</text>
+          </navLabel>
+          <content src="6_interfaces/xml.xhtml#xpath-xml-path" />  
+        </navPoint>
+        <navPoint id="navPoint147" playOrder="117">
+          <navLabel>
+            <text>Схема</text>
+          </navLabel>
+          <content src="6_interfaces/xml.xhtml#id7" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint148" playOrder="118">
+        <navLabel>
+          <text>NETCONF Again</text>
+        </navLabel>
+        <content src="6_interfaces/netconf_again.xhtml" />  
+        <navPoint id="navPoint149" playOrder="118">
+          <navLabel>
+            <text>NETCONF Again</text>
+          </navLabel>
+          <content src="6_interfaces/netconf_again.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint150" playOrder="119">
+          <navLabel>
+            <text>Действия, операции</text>
+          </navLabel>
+          <content src="6_interfaces/netconf_again.xhtml#id1" />  
+        </navPoint>
+        <navPoint id="navPoint151" playOrder="120">
+          <navLabel>
+            <text>Инструменты разработчика для NETCONF</text>
+          </navLabel>
+          <content src="6_interfaces/netconf_again.xhtml#netconf" />  
+        </navPoint>
+        <navPoint id="navPoint152" playOrder="121">
+          <navLabel>
+            <text>Как это использовать</text>
+          </navLabel>
+          <content src="6_interfaces/netconf_again.xhtml#id7" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint153" playOrder="122">
+        <navLabel>
+          <text>RESTCONF</text>
+        </navLabel>
+        <content src="6_interfaces/restconf.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint154" playOrder="123">
+        <navLabel>
+          <text>Call-Home</text>
+        </navLabel>
+        <content src="6_interfaces/callhome.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint155" playOrder="124">
+        <navLabel>
+          <text>gRPC/gNMI</text>
+        </navLabel>
+        <content src="6_interfaces/grpc.xhtml" />  
+        <navPoint id="navPoint156" playOrder="124">
+          <navLabel>
+            <text>gRPC/gNMI</text>
+          </navLabel>
+          <content src="6_interfaces/grpc.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint157" playOrder="125">
+          <navLabel>
+            <text>gRPC</text>
+          </navLabel>
+          <content src="6_interfaces/grpc.xhtml#grpc" />  
+        </navPoint>
+        <navPoint id="navPoint158" playOrder="126">
+          <navLabel>
+            <text>gNMI</text>
+          </navLabel>
+          <content src="6_interfaces/grpc.xhtml#gnmi" />  
+        </navPoint>
+        <navPoint id="navPoint159" playOrder="127">
+          <navLabel>
+            <text>gNOI</text>
+          </navLabel>
+          <content src="6_interfaces/grpc.xhtml#gnoi" />  
+        </navPoint>
+        <navPoint id="navPoint160" playOrder="128">
+          <navLabel>
+            <text>Telemetry</text>
+          </navLabel>
+          <content src="6_interfaces/grpc.xhtml#telemetry" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint161" playOrder="129">
+        <navLabel>
+          <text>Модели данных</text>
+        </navLabel>
+        <content src="6_interfaces/models.xhtml" />  
+        <navPoint id="navPoint162" playOrder="129">
+          <navLabel>
+            <text>Модели данных</text>
+          </navLabel>
+          <content src="6_interfaces/models.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint163" playOrder="130">
+          <navLabel>
+            <text>Native</text>
+          </navLabel>
+          <content src="6_interfaces/models.xhtml#native" />  
+        </navPoint>
+        <navPoint id="navPoint164" playOrder="131">
+          <navLabel>
+            <text>Вендор-нейтральные модели</text>
+          </navLabel>
+          <content src="6_interfaces/models.xhtml#id3" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint165" playOrder="132">
+        <navLabel>
+          <text>YANG</text>
+        </navLabel>
+        <content src="6_interfaces/yang.xhtml" />  
+        <navPoint id="navPoint166" playOrder="132">
+          <navLabel>
+            <text>YANG</text>
+          </navLabel>
+          <content src="6_interfaces/yang.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint167" playOrder="133">
+          <navLabel>
+            <text>Препарируем YANG-модель</text>
+          </navLabel>
+          <content src="6_interfaces/yang.xhtml#id1" />  
+        </navPoint>
+        <navPoint id="navPoint168" playOrder="134">
+          <navLabel>
+            <text>Pyang</text>
+          </navLabel>
+          <content src="6_interfaces/yang.xhtml#pyang" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint169" playOrder="135">
+        <navLabel>
+          <text>Model Driven Programmability</text>
+        </navLabel>
+        <content src="6_interfaces/model_driven.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint170" playOrder="136">
+        <navLabel>
+          <text>Всё вместе</text>
+        </navLabel>
+        <content src="6_interfaces/onemoretime.xhtml" />  
+        <navPoint id="navPoint171" playOrder="136">
+          <navLabel>
+            <text>Всё вместе</text>
+          </navLabel>
+          <content src="6_interfaces/onemoretime.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint172" playOrder="137">
+          <navLabel>
+            <text>И ещё другими словами</text>
+          </navLabel>
+          <content src="6_interfaces/onemoretime.xhtml#id2" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint173" playOrder="138">
+        <navLabel>
+          <text>Полезные ссылки</text>
+        </navLabel>
+        <content src="6_interfaces/links.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint174" playOrder="139">
+        <navLabel>
+          <text>Заключение</text>
+        </navLabel>
+        <content src="6_interfaces/conclusion.xhtml" />  
+        <navPoint id="navPoint175" playOrder="139">
+          <navLabel>
+            <text>Заключение</text>
+          </navLabel>
+          <content src="6_interfaces/conclusion.xhtml" />  
+        </navPoint>
+        <navPoint id="navPoint176" playOrder="140">
+          <navLabel>
+            <text>Благодарности</text>
+          </navLabel>
+          <content src="6_interfaces/conclusion.xhtml#id3" />  
+        </navPoint>
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>

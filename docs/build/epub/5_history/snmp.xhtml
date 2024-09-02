@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SNMP - и не simple, и не management, и не short term</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="snmp-simple-management-short-term">
+<h1>SNMP - и не simple, и не management, и не short term</h1>
+<p><em>Бунтарские 80-е - лихие 90-е.</em></p>
+<div class="line-block">
+<div class="line">Это была достаточно смелая и, в некотором смысле, успешная попытка создать единый стандарт взаимодействия с сетевым устройством.</div>
+<div class="line">В 80-е годы было уже вполне понятно, что сети - бурнорастущая отрасль, в которой уже сейчас хаотически складываются подходы к управлению.</div>
+</div>
+<p>И вот умники в <strong>IAB</strong> (<em>Internet Activities Board</em>) крепко призадумались и 21-го марта 1988 года, собравшись в тогдашнем зуме (без шуток, не офлайн), постановили много важного стратегического про будущее систем управления интернетом. Ох они тогда напридумывали!</p>
+<p>Результаты встречи они сели, записали и превратили в <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc1052">RFC1052</a><span class="link-target"> [https://datatracker.ietf.org/doc/html/rfc1052]</span> .</p>
+<p>Они уже тогда действительно проектировали штуки, которые должны были не дать превратиться системам управления в то, во что они всё же превратились.</p>
+<p>Как иронично теперь читать это послание из 80-х:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>(i) Future Internet development is a joint interest of the R&amp;D
+community, the vendor community and the user community.
+(ii) We still don&#39;t have a common understanding of what
+[Inter]Network Management really is.
+(iii) We will learn what [Inter]Network Management is by doing it.
+(v) Define the Management Information Base for TCP/IP suite NOW!
+(vi) Seek a seat for IETF on ANSI, ISO and/or CCITT
+
+Удачи вам там, пацаны, в будущем…
+</pre></div>
+</div>
+</div></blockquote>
+<p>Но работа закипела. RFC выходил за RFC. А количество рабочих групп не оставляло шансов для провала.</p>
+<p>Что любопытно, так это то, что SNMP по их задумке был <strong>временным протоколом</strong>, решающим насущные нужды вендоров и операторов в перспективе нескольких лет. А в дальнейшем все должны были перейти на ISO CMIP/CMIS (<a class="reference external" href="https://www.ietf.org/rfc/rfc1095.txt">RFC1095</a><span class="link-target"> [https://www.ietf.org/rfc/rfc1095.txt]</span>, <a class="reference external" href="https://www.ietf.org/rfc/rfc1189.txt">RFC1189</a><span class="link-target"> [https://www.ietf.org/rfc/rfc1189.txt]</span>). Общими для них оставались MIB (<a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc1066">RFC1066</a><span class="link-target"> [https://datatracker.ietf.org/doc/html/rfc1066]</span>) - спецификации, описывающие формат данных.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Уверен, что уже тогда не всем эта идея пришлась по душе.</div>
+<div class="line">В те дни человечество ещё верило в ISO.</div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><strong>CMIP/CMIS</strong> - <em>Common Management Information Services/Common Management Information Protocol</em> - это такая же несостоявшаяся вещь, как OSI. Здорово всё напланировали, но временный SNMP заполонил всю планету.</div>
+<div class="line">Есть и другие слова, выдуманные в те дни, которые мы сейчас нигде в обиходе не используем: <em>HEMS, SGMP, NETVIEW, TNM, LANMANAGER, Network Computing Forum «Fat Document»</em>…</div>
+</div>
+<p>SNMP именно потому и был <em>Simple</em>, что на горизонте маячил <em>Common</em>. И его планировали держать «Simple», пока не откажутся. А вовсе не потому что он сам по себе был прост. Кажется, нам, как цивилизации, ещё повезло, что на смену SNMP не пришло что-то не столь Simple.</p>
+<div class="line-block">
+<div class="line">Итак, SNMP победил, если это можно считать победой. А другие рабочие группы распустили.</div>
+<div class="line">MIB - являл собой спецификацию, говорящую как системе управления, так и сетевому устройству, как собирать и интерпретировать SNMP-сообщения.</div>
+<div class="line">То есть на одной стороне есть инструкции того, как собрать пакет, на другой - как его прочитать. Остаётся только подставлять переменные и посылать через SNMP.</div>
+<div class="line">Ну какова красота?! Никакого чтения документации, никакой человеческой интерпретации - только строгое следование спецификации. И это начало 90-х!</div>
+</div>
+<div class="line-block">
+<div class="line">Скажу вам больше - те же парни из IAB, ещё до того, как Cisco начала паровозить тему с SNMP, придумали <strong>SMI</strong> - <em>Structure of Management Information</em> - по сути язык моделирования данных - то, как именно данные будут структурированы в MIB.</div>
+<div class="line">Для нас не очень важно что и в течение какого времени нужно употреблять, чтобы написать и прочитать модели, написанные на языке <a class="reference external" href="https://habr.com/ru/post/150757/">ASN.1</a><span class="link-target"> [https://habr.com/ru/post/150757/]</span> - прародителе SMI. Для нас важно, что SMI дал жизнь <strong>YANG</strong>’у. Всё же не вся работа тогдашних групп была в стол. Но об этом позже.</div>
+</div>
+<p>Уже тогда, в 90-е, все хотели сделать что-то универсальное и отвязаться от вендорской специфики, но настойчивых попыток не предпринимали, а вендоры в погоне за time to market были ещё меньше заинтересованы вкладываться в стандартизацию того места, где им не придётся стыковаться друг с другом. Поэтому единой модели тогда не появилось.</p>
+<p>Однако теперь следите за руками: к концу 90-х у нас уже были:</p>
+<ul class="simple">
+<li><p>Протокол - SNMP</p></li>
+<li><p>Спецификации - MIB</p></li>
+<li><p>Язык их моделирования - SMI</p></li>
+<li><p>Возможность стримить данные с железки на NMS - Trap’ы (ну серединка на половинку, конечно, но всё же)</p></li>
+<li><p>Целая пачка инструментов, утилит и NMS, работающих с MIB и SNMP - snmpwalk, MIB browser</p></li>
+<li><p>Желание вендоров поддерживать это и выпускать MIB’ы для каждой новой версии вовремя</p></li>
+</ul>
+<p>По всей видимости мы были просто в шаге от дивного мира с единым фреймворком для сетевой автоматизации.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/5/if-world.png" src="https://fs.linkmeup.ru/images/adsm/5/if-world.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>Но добавляя ещё один пункт:</p>
+<ul class="simple">
+<li><p>Никто из вендоров при этом так и не поддержал полноценное конфигурирование через SNMP</p></li>
+</ul>
+<p>мы получаем ситуацию, в которой мы находимся прямо сейчас. Та-дам!</p>
+<p>Но даже без этого в силу сложности (<em>S for Slozhnost</em>), вопросов к архитектуре, безопасности, транзакционности, нечитаемости спецификаций, непрогнозируемости результатов, невозможности проиграть изменения повторно, UDP в качестве транспорта и многим другим, SNMP нашёл применение лишь в задачах сбора данных с сетевых устройств и в крайне вырожденных случаях для настройки точечно тех или иных вещей.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/5/change_my_mind.jpg" src="https://fs.linkmeup.ru/images/adsm/5/change_my_mind.jpg" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>Впрочем сегодня даже в вопросах мониторинга SNMP скромно уступает место NETCONF и gNMI.</p>
+<p>Смахнули скупую слезу и забыли! И про SNMP и про CMIP/CMIS. Не забываем только про SMI.</p>
+<p>Переходим к современности.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

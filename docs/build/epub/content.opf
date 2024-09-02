@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="ru"
+ unique-identifier="unknown"
+ prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+  <metadata xmlns:opf="http://www.idpf.org/2007/opf"
+        xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:language>ru</dc:language>
+    <dc:title>ADSM</dc:title>
+    <dc:description>unknown</dc:description>
+    <dc:creator>eucariot</dc:creator>
+    <dc:contributor>unknown</dc:contributor>
+    <dc:publisher>eucariot</dc:publisher>
+    <dc:rights>2021, eucariot</dc:rights>
+    <dc:identifier id="unknown">unknown</dc:identifier>
+    <dc:date>2024-09-02T10:06:26Z</dc:date>
+    <meta property="dcterms:modified">2024-09-02T10:06:26Z</meta>
+    <meta property="ibooks:version"></meta>
+    <meta property="ibooks:specified-fonts">true</meta>
+    <meta property="ibooks:binding">true</meta>
+    <meta property="ibooks:scroll-axis">vertical</meta>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+    <item id="epub-0" href="contents.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-1" href="genindex.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-2" href="index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-3" href="0_planning/conclusion.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-4" href="0_planning/goals.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-5" href="0_planning/planning.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-6" href="0_planning/tools.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-7" href="1_virtualization/index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-8" href="1_virtualization/0_virtual_network/conclusion.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-9" href="1_virtualization/0_virtual_network/faq.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-10" href="1_virtualization/0_virtual_network/index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-11" href="1_virtualization/0_virtual_network/motivation.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-12" href="1_virtualization/0_virtual_network/overlay.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-13" href="1_virtualization/0_virtual_network/terminology.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-14" href="1_virtualization/0_virtual_network/underlay.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-15" href="1_virtualization/1_virtualization_basics/conclusion.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-16" href="1_virtualization/1_virtualization_basics/history.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-17" href="1_virtualization/1_virtualization_basics/index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-18" href="1_virtualization/1_virtualization_basics/resource_types.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-19" href="1_virtualization/1_virtualization_basics/tools.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-20" href="1_virtualization/1_virtualization_basics/vitual_switching.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-21" href="2_network_design/conclusion.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-22" href="2_network_design/index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-23" href="2_network_design/ip_plan.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-24" href="2_network_design/lab.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-25" href="2_network_design/routing.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-26" href="2_network_design/topology.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-27" href="3_ipam_dcim/architecture.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-28" href="3_ipam_dcim/conclusion.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-29" href="3_ipam_dcim/index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-30" href="3_ipam_dcim/installation.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-31" href="3_ipam_dcim/postgresql.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-32" href="3_ipam_dcim/scheme.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-33" href="3_ipam_dcim/restful/conclusion.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-34" href="3_ipam_dcim/restful/index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-35" href="3_ipam_dcim/restful/messages.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-36" href="3_ipam_dcim/restful/methods.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-37" href="3_ipam_dcim/restful/rest.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-38" href="3_ipam_dcim/restful/ways.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-39" href="4_lifecycle/architecture.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-40" href="4_lifecycle/conclusion.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-41" href="4_lifecycle/iac.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-42" href="4_lifecycle/index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-43" href="4_lifecycle/lifecycle.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-44" href="4_lifecycle/links.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-45" href="4_lifecycle/scenarios.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-46" href="5_history/api_rpc.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-47" href="5_history/cli.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-48" href="5_history/conclusion.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-49" href="5_history/future.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-50" href="5_history/grpc.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-51" href="5_history/horizon.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-52" href="5_history/index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-53" href="5_history/links.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-54" href="5_history/models.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-55" href="5_history/netconf.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-56" href="5_history/nowdays.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-57" href="5_history/restconf.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-58" href="5_history/snmp.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-59" href="6_interfaces/callhome.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-60" href="6_interfaces/cli.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-61" href="6_interfaces/conclusion.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-62" href="6_interfaces/grpc.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-63" href="6_interfaces/index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-64" href="6_interfaces/links.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-65" href="6_interfaces/model_driven.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-66" href="6_interfaces/models.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-67" href="6_interfaces/netconf.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-68" href="6_interfaces/netconf_again.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-69" href="6_interfaces/onemoretime.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-70" href="6_interfaces/restconf.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-71" href="6_interfaces/rpc.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-72" href="6_interfaces/xml.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-73" href="6_interfaces/yang.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-74" href="_static/basic.css" media-type="text/css" />
+    <item id="epub-75" href="_static/epub.css" media-type="text/css" />
+    <item id="epub-76" href="_static/file.png" media-type="image/png" />
+    <item id="epub-77" href="_static/minus.png" media-type="image/png" />
+    <item id="epub-78" href="_static/plus.png" media-type="image/png" />
+    <item id="epub-79" href="_static/pygments.css" media-type="text/css" />
+  </manifest>
+  <spine toc="ncx" page-progression-direction="ltr">
+    <itemref idref="epub-2" />
+    <itemref idref="epub-5" />
+    <itemref idref="epub-4" />
+    <itemref idref="epub-6" />
+    <itemref idref="epub-3" />
+    <itemref idref="epub-7" />
+    <itemref idref="epub-10" />
+    <itemref idref="epub-11" />
+    <itemref idref="epub-13" />
+    <itemref idref="epub-14" />
+    <itemref idref="epub-12" />
+    <itemref idref="epub-9" />
+    <itemref idref="epub-8" />
+    <itemref idref="epub-17" />
+    <itemref idref="epub-16" />
+    <itemref idref="epub-18" />
+    <itemref idref="epub-20" />
+    <itemref idref="epub-19" />
+    <itemref idref="epub-15" />
+    <itemref idref="epub-22" />
+    <itemref idref="epub-26" />
+    <itemref idref="epub-25" />
+    <itemref idref="epub-23" />
+    <itemref idref="epub-24" />
+    <itemref idref="epub-21" />
+    <itemref idref="epub-29" />
+    <itemref idref="epub-27" />
+    <itemref idref="epub-32" />
+    <itemref idref="epub-30" />
+    <itemref idref="epub-31" />
+    <itemref idref="epub-34" />
+    <itemref idref="epub-37" />
+    <itemref idref="epub-35" />
+    <itemref idref="epub-36" />
+    <itemref idref="epub-38" />
+    <itemref idref="epub-33" />
+    <itemref idref="epub-28" />
+    <itemref idref="epub-42" />
+    <itemref idref="epub-43" />
+    <itemref idref="epub-41" />
+    <itemref idref="epub-39" />
+    <itemref idref="epub-45" />
+    <itemref idref="epub-44" />
+    <itemref idref="epub-40" />
+    <itemref idref="epub-52" />
+    <itemref idref="epub-47" />
+    <itemref idref="epub-58" />
+    <itemref idref="epub-46" />
+    <itemref idref="epub-55" />
+    <itemref idref="epub-57" />
+    <itemref idref="epub-54" />
+    <itemref idref="epub-50" />
+    <itemref idref="epub-56" />
+    <itemref idref="epub-49" />
+    <itemref idref="epub-51" />
+    <itemref idref="epub-53" />
+    <itemref idref="epub-48" />
+    <itemref idref="epub-63" />
+    <itemref idref="epub-60" />
+    <itemref idref="epub-71" />
+    <itemref idref="epub-67" />
+    <itemref idref="epub-72" />
+    <itemref idref="epub-68" />
+    <itemref idref="epub-70" />
+    <itemref idref="epub-59" />
+    <itemref idref="epub-62" />
+    <itemref idref="epub-66" />
+    <itemref idref="epub-73" />
+    <itemref idref="epub-65" />
+    <itemref idref="epub-69" />
+    <itemref idref="epub-64" />
+    <itemref idref="epub-61" />
+    <itemref idref="epub-1" />
+    <itemref idref="epub-0" linear="no" />
+  </spine>
+  <guide>
+    <reference type="toc" title="Table of Contents" href="index.xhtml" />
+  </guide>
+</package>

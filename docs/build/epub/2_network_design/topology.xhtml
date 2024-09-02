@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Физическая Топология</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Физическая Топология</h1>
+<div class="section" id="id2">
+<h2>Локации</h2>
+<p>У LAN_DC будет 6 ДЦ:</p>
+<ul>
+<li><dl class="simple">
+<dt>Россия (<strong>RU</strong>):</dt><dd><ul class="simple">
+<li><p>Москва (<strong>msk</strong>)</p></li>
+<li><p>Казань (<strong>kzn</strong>)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Испания (<strong>SP</strong>):</dt><dd><ul class="simple">
+<li><p>Барселона (<strong>bcn</strong>)</p></li>
+<li><p>Малага (<strong>mlg</strong>)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Китай (<strong>CN</strong>):</dt><dd><ul class="simple">
+<li><p>Шанхай (<strong>sha</strong>)</p></li>
+<li><p>Сиань (<strong>sia</strong>)</p></li>
+</ul>
+<div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/2/locations.png" src="https://fs.linkmeup.ru/images/adsm/2/locations.png" style="width: 800px;" />
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="intra-dc">
+<h2>Внутри ДЦ (Intra-DC)</h2>
+<p>Во всех ДЦ идентичные сети внутренней связности, основанные на топологии Клоза.
+Что за сети Клоза и почему именно они - в отдельной <a class="reference external" href="https://linkmeup.ru/blog/480.html">статье</a><span class="link-target"> [https://linkmeup.ru/blog/480.html]</span>.</p>
+<p>В каждом ДЦ по 10 стоек с машинами, они будут нумероваться как <strong>A</strong>, <strong>B</strong>, <strong>C</strong> итд.
+В каждой стойке по 30 машин. Они нас интересовать не будут.
+Также в каждой стойке стоит коммутатор, к которому подключены все машины - это <strong>Top of the Rack switch - ToR</strong> или иначе в терминах фабрики Клоза будем называть его <strong>Leaf</strong>.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru//images/adsm/2/3stage_clos.png" src="https://fs.linkmeup.ru//images/adsm/2/3stage_clos.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p><em>Общая схема фабрики</em></p>
+<p>Именовать их будем <em>XXX-leafY</em>, где <strong>XXX</strong> - трёхбуквенное сокращение ДЦ, а <strong>Y</strong> - порядковый номер. Например, <em>kzn-leaf11</em>.</p>
+<blockquote>
+<div><p>Я в статьях позволю себе достаточно фривольно обращаться терминами Leaf и ToR, как синонимами. Однако нужно помнить, что это не так.
+ToR - это коммутатор, установленный в стойке, к которому подключаются машины.
+Leaf - это роль устройства в физической сети или свитч первого уровня в терминах топологии Клоза.
+То есть Leaf != ToR.
+Так Leaf’ом может быть End Of Raw-коммутатор, например.
+Однако в рамках этой статьи будем всё же обращаться ими как синонимами.</p>
+</div></blockquote>
+<p>Каждый ToR-коммутатор в свою очередь соединён с четырьмя вышестоящими агрегирующими коммутаторами - <strong>Spine</strong>. Под Spine’ы выделено по одной стойке в ДЦ. Именовать будем аналогично: <em>XXX-spineY</em>.</p>
+<p>В этой же стойке будет стоять сетевое оборудование для связности между ДЦ - 2 маршрутизатора с MPLS на борту. Но по большому счёту - это те же самые ToR’ы. То есть с точки зрения Spine-коммутаторов не имеет никакого значения обычный там ToR с подключенными машинами или маршрутизатор для DCI - один чёрт форвардить.
+Такие специальные ToR’ы называются <strong>Edge-leaf</strong>. Мы их будем именовать <em>XXX-edgeY</em>.</p>
+<p>Выглядеть это будет так.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru//images/adsm/2/3stage_clos_w_edge.png" src="https://fs.linkmeup.ru//images/adsm/2/3stage_clos_w_edge.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>На схеме выше edge и leaf я действительно разместил на одном уровне. <a class="reference external" href="https://linkmeup.ru/blog/480.html">Классические трёхуровневые сети</a><span class="link-target"> [https://linkmeup.ru/blog/480.html]</span> приучили нас рассматривать, аплинк (собственно отсюда и термин), как линки вверх. А тут получается «аплинк» DCI идёт обратно вниз, что некоторым немного ломает привычную логику. В случае крупных сетей, когда датацентры делятся ещё на более мелкие единицы - <strong>POD</strong>’ы (Point Of Delivery), выделяют отдельные <strong>Edge-POD</strong>’ы для DCI и выхода во внешние сети.</p>
+<p>Для удобства восприятия в дальнейшем я буду всё же рисовать Edge над Spine, при этом мы будем держать в уме, что никакого интеллекта на Spine и отличий при работе с обычными Leaf и с Edge-leaf нет (хотя тут могут быть нюансы, но в целом это так).</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/2/fabric.png" src="https://fs.linkmeup.ru/images/adsm/2/fabric.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p><em>Схема фабрики с Edge-leaf’ами.</em></p>
+<p>Троица Leaf, Spine и Edge образуют Underlay-сеть или фабрику.</p>
+<p>Задача сетевой фабрики (читай Underlay), как мы уже определились в <a class="reference external" href="https://linkmeup.ru/blog/449.html">прошлом выпуске</a><span class="link-target"> [https://linkmeup.ru/blog/449.html]</span>, очень и очень простая - обеспечить IP-связность между машинами как в пределах одного ДЦ, так и между.
+Оттого-то сеть и называется фабрикой, так же, например, как фабрика коммутации внутри модульных сетевых коробок, о чём подробнее можно почитать в <a class="reference external" href="https://linkmeup.ru/blog/312.html">СДСМ14</a><span class="link-target"> [https://linkmeup.ru/blog/312.html]</span>.</p>
+<blockquote>
+<div><p>А вообще такая топология называется фабрикой, потому что fabric в переводе - это ткань. И сложно не согласиться:</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/2/8_ports_5_stages.png" src="https://fs.linkmeup.ru/images/adsm/2/8_ports_5_stages.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+</div></blockquote>
+<p>Фабрика полностью L3. Никаких VLAN, никаких Broadcast - вот такие у нас в LAN_DC замечательные программисты, умеют писать приложения, живущие в парадигме L3, а виртуальные машины не требуют Live Migration c сохранением IP-адреса.</p>
+<p>И ещё раз: ответ на вопрос почему фабрика и почему L3 - в отдельной <a class="reference external" href="https://linkmeup.ru/blog/480.html">статье</a><span class="link-target"> [https://linkmeup.ru/blog/480.html]</span>.</p>
+</div>
+<div class="section" id="dci-data-center-interconnect-inter-dc">
+<h2>DCI - Data Center Interconnect (Inter-DC)</h2>
+<p>DCI будет организован с помощью Edge-Leaf, то есть они - наша точка выхода в магистраль.
+Для простоты предположим, что ДЦ связаны между собой прямыми линками.
+Исключим из рассмотрения внешнюю связность.</p>
+<blockquote>
+<div><p>Я отдаю себе отчёт в том, что каждый раз, как я убираю какой-либо компонент, я значительно упрощаю сеть. И при автоматизации нашей абстрактной сети всё будет хорошо, а на реальной возникнут костыли.
+Это так. И всё же задача этой серии - подумать и поработать над подходами, а не героически решать выдуманные проблемы.</p>
+</div></blockquote>
+<p>На Edge-Leaf’ах  underlay помещается в VPN и передаётся через MPLS-магистраль (тот самый прямой линк).</p>
+<p>Вот такая верхнеуровневая схема получается.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/2/network.png" src="https://fs.linkmeup.ru/images/adsm/2/network.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

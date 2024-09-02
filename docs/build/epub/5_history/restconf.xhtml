@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RESTCONF</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="restconf">
+<h1>RESTCONF</h1>
+<p><em>Буйные 10-е и забыли</em></p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The workshop recommends, with strong consensus from the operators
+and rough consensus from the protocol developers, that the
+IETF/IRTF should not spend resources on developing HTML-based or
+HTTP-based methods for configuration management.
+</pre></div>
+</div>
+<p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc3535#section-6">RFC3535. Recommendation 6</a><span class="link-target"> [https://datatracker.ietf.org/doc/html/rfc3535#section-6]</span></p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">SSH - это хорошо. Но на сетевую автоматизацию случился спрос, а за ним наплыв сил разработчиков. А вот эти разработчики хорошо шарят в REST, но на курле крутили все эти наши SSH и парсинг текста.</div>
+<div class="line">В компаниях, где начинают заниматься автоматизацией сети, обычно уже есть свой штат разработчиков, инструменты, практики. И они в лучшем случае рассматривают сеть, как ещё одни сервера, а то и ещё один сервис.</div>
+<div class="line">И вот REST API с CRUD им очень знаком.</div>
+<div class="line">Вот и решили парни из циски, джунипера и tail-f: <em>«а почему бы не запилить REST API в сетевые коробки?»</em>. Ну пошли и запилили - делов-то. И назвали RESTCONF - всё ещё отзываются боли SNMP.</div>
+</div>
+<p><a class="reference external" href="https://tools.ietf.org/id/draft-bierman-netconf-restconf-04.html">Драфт был опубликован в 2014м</a><span class="link-target"> [https://tools.ietf.org/id/draft-bierman-netconf-restconf-04.html]</span>, а в 2017 мир увидел <a class="reference external" href="https://www.ietf.org/rfc/rfc8040.txt">RFC8040</a><span class="link-target"> [https://www.ietf.org/rfc/rfc8040.txt]</span>.</p>
+<div class="line-block">
+<div class="line">Это помесь RESTAPI и NETCONF, которая была призвана упростить управление сетью для WEB-приложений.</div>
+<div class="line">Внутри идеологически это NETCONF с его datastores и способами работать с конфигурацией, однако в качестве транспорта - HTTP с набором операций CRUD, реализованных через стандартные методы (<em>GET</em>, <em>POST</em>, <em>PUT</em>, <em>PATCH</em>, <em>DELETE</em>).</div>
+</div>
+<div class="line-block">
+<div class="line">Конфигурационные данные передаются в формате JSON или XML.</div>
+<div class="line">В качестве модели данных используется только те, что написаны на языке YANG - тут уже никакой самодеятельности.</div>
+</div>
+<div class="line-block">
+<div class="line">С самого начала RESTCONF не затевался как замена NETCONF, а только как более удобный для WEB-приложений способ работать с сетевыми устройствами. То есть они должны сожительствовать.</div>
+<div class="line">При этом обычно на устройстве реализуется один бэкенд, обрабатывающий запросы на работу с конфигурацией и опер.данными от разных фронтов - NETCONF или RESTCONF. То есть в основе одни и те же datastores, один и тот же движок, вычисляющий конфигурационные дельты, но сложность транзакционности и нескольких разных видов конфигураций (<code class="docutils literal notranslate"><span class="pre">running</span></code>, <code class="docutils literal notranslate"><span class="pre">candidate</span></code>, <code class="docutils literal notranslate"><span class="pre">saved</span></code>) от пользователя скрыта в случае NETCONF.</div>
+</div>
+<p>С другой стороны отсутствие в выдаче поисковиков хоть сколько-то серьёзных работ по автоматизации с помощью RESTCONF и даже популистских статей от больших игроков говорит о том, что это всё не более чем баловство. И я намеренно не пишу слово «пока». Лично я в него не верю.</p>
+<p>При этом CRUD не очень гладко ложится на RPC-подход, да и в идее держать открытым на сетевом железе HTTP есть что-то противоестественное, согласитесь? Нет? Ну ладно.</p>
+<p>Просто жаль сил, вложенных в этот протокол. Потому что на пятки ему наступает gRPC/gNMI.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

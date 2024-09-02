@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Call-Home</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="call-home">
+<h1>Call-Home</h1>
+<p><a class="reference external" href="https://www.ietf.org/rfc/rfc8071.txt">RFC8071</a><span class="link-target"> [https://www.ietf.org/rfc/rfc8071.txt]</span>.</p>
+<p>Это, что называется, звонок домой - способ инициировать соединение с NETCONF/RESTCONF-сервера к клиенту, то есть с сетевой коробки на систему управления.</p>
+<p>На устройстве настраивается IP-адрес NETCONF/RESTCONF-клиента, куда оно отсылает периодически данные по своему состоянию. Либо обращается для того, чтобы зарегистрироваться в системе и забрать свою конфигурацию.</p>
+<p>Применимо для сценариев, когда</p>
+<ul class="simple">
+<li><p>Новое устройство должно сообщить о себе в систему управления</p></li>
+<li><p>Устройство находится за NAT или фаерволом</p></li>
+<li><p>Администратор считает, что безопаснее иметь закрытые порты на сетевых элементах и открывать только well-known порт на системе управления</p></li>
+</ul>
+<p>Подробно тут останавливаться не будем.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Некоторые нюансы установки NetBox</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="netbox">
+<h1>Некоторые нюансы установки NetBox</h1>
+<p>Я не буду описывать процесс инсталляции в деталях - он более чем классно описан в <a class="reference external" href="https://netbox.readthedocs.io/en/stable/installation/">официальной документации</a><span class="link-target"> [https://netbox.readthedocs.io/en/stable/installation/]</span>.</p>
+<p>Посмотреть на процесс запуска docker-образа NetBox и работу в GUI можно в видео Димы Фиголя (<a class="reference external" href="https://www.youtube.com/watch?v=GGXgAlWm9aY&amp;t=9655s">раз</a><span class="link-target"> [https://www.youtube.com/watch?v=GGXgAlWm9aY&amp;t=9655s]</span> и <a class="reference external" href="https://www.youtube.com/watch?v=a3yK_WAisPw">два</a><span class="link-target"> [https://www.youtube.com/watch?v=a3yK_WAisPw]</span>) и <a class="reference external" href="https://www.youtube.com/watch?v=I_Ra3PIR2Lc&amp;feature=youtu.be">Эмиля Гарипова</a><span class="link-target"> [https://www.youtube.com/watch?v=I_Ra3PIR2Lc&amp;feature=youtu.be]</span>.</p>
+<div class="line-block">
+<div class="line">В целом, если следовать шагам установки/запуска неукоснительно, то всё получится.</div>
+<div class="line">Но вот какие есть нюансы, про которые случайно можно забыть.</div>
+</div>
+<ul>
+<li><div class="line-block">
+<div class="line">В файле configuration.py должен быть заполнен параметр <a class="reference external" href="https://netbox.readthedocs.io/en/stable/installation/2-netbox/#allowed_hosts">ALLOWED_HOSTS</a><span class="link-target"> [https://netbox.readthedocs.io/en/stable/installation/2-netbox/#allowed_hosts]</span>:</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">ALLOWED_HOSTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;netbox.linkmeup.ru&#39;</span>,<span class="w"> </span><span class="s1">&#39;localhost&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Тут нужно указать все возможные имена  NetBox, к которым вы будете обращаться, например, может быть внешний IP-адрес или 127.0.0.1 или DNS-alias.</div>
+<div class="line">Если этого не будет сделано, сайт NetBox не откроется и будет показывать 400.</div>
+</div>
+</li>
+<li><p>В этом же файле должен быть указан <a class="reference external" href="https://netbox.readthedocs.io/en/stable/installation/2-netbox/#secret_key">SECRET_KEY</a><span class="link-target"> [https://netbox.readthedocs.io/en/stable/installation/2-netbox/#secret_key]</span>, который можно выдумать самому или сгенерировать скриптом.</p></li>
+<li><p>Главная страница будет показывать 502 Bad Gateway, если что-то не так с настройкой базы PostgreSQL: проверьте хост(если ставили на другую машину), порт, имя базы, имя пользователя, пароль.</p></li>
+<li><div class="line-block">
+<div class="line">С <a class="reference external" href="https://github.com/netbox-community/netbox/releases/tag/v2.6.0">некоторых пор</a><span class="link-target"> [https://github.com/netbox-community/netbox/releases/tag/v2.6.0]</span> NetBox по умолчанию не даёт никаких прав на чтение без авторизации.</div>
+<div class="line">Изменяется это всё в том же configuration.py:</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">EXEMPT_VIEW_PERMISSIONS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;*&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><div class="line-block">
+<div class="line">А ещё API запросы будут возвращать 200 и не работать, если в API URL не будет слэша в конце.</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

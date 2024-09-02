@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Заключение</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Заключение</h1>
+<p>Это весьма поверхностное описание работы виртуальной сети с оверлеем с хоста и SDN-контроллером. Но какую бы платформу виртуализации вы сегодня ни взяли, работать она будет похожим образом, будь то VMWare, ACI, OpenStack, CloudStack, Tungsten Fabric или Juniper Contrail. Они будут отличаться видами инкапсуляций и заголовков, протоколами доставки информации на конечные сетевые устройства, но принцип программно настраиваемой оверлейной сети, работающей поверх сравнительно простой и статичной андерлейной сети останется прежним.
+Можно сказать, что  области создания приватного облака на сегодняшний день SDN на основе оверлейной сети победил. Впрочем это не значит, что Openflow нет места в современном мире - он используется в OpenStacke и в той же VMWare NSX, его, насколько мне известно, использует Google для настройки андерлейной сети.</p>
+<blockquote>
+<div><p>Чуть ниже я привёл ссылки на более подробные материалы, если хочется изучить вопрос глубже.</p>
+</div></blockquote>
+<p>А что там наш Underlay?
+А в общем-то ничего. Он всю дорогу не менялся. Всё, что ему нужно делать в случае оверлея с хоста - это обновлять маршруты и ARP’ы по мере появления и исчезновения vRouter/VNGW и таскать пакеты между ними.</p>
+<p>Давайте сформулируем список требований к Underlay-сети.</p>
+<ol class="arabic simple">
+<li><p>Уметь в какой-то протокол маршрутизации, в нашей ситуации - BGP.</p></li>
+<li><p>Иметь широкую полосу, желательно без переподписки, чтобы не терялись пакеты из-за перегрузок.</p></li>
+<li><p>Поддерживать ECMP - неотъемлемая часть фабрики.</p></li>
+<li><p>Уметь обеспечить QoS, в том числе хитрые штуки, вроде ECN.</p></li>
+<li><p>Поддерживать NETCONF - задел на будущее.</p></li>
+</ol>
+<p>Работе самой Underlay-сети я посвятил здесь совсем мало времени. Это потому, что далее в серии я именно на ней и сосредоточусь, а Overlay мы будем затрагивать только вскользь.</p>
+<p>Очевидно, я сильно ограничиваю нас всех, используя в качестве примера сеть ДЦ, построенную на фабрике Клоза с чистой IP-маршрутизацией и оверлеем с хоста.
+Однако я уверен, что любую сеть, имеющую дизайн, можно описать в формальных терминах и автоматизировать. Просто я здесь преследую целью разобраться в подходах к автоматизации, а не запутать всех вообще, решая задачу в общем виде.</p>
+<p>В рамках АДСМ мы с Романом Горге планируем опубликовать отдельный выпуск про виртуализацию вычислительных мощностей и её взаимодействие с виртуализацией сети. Оставайтесь на связи.</p>
+<div class="section" id="id2">
+<h2>Полезные ссылки</h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://tungstenfabric.github.io/website/">Tungsten Fabric Archvitecture</a><span class="link-target"> [https://tungstenfabric.github.io/website/]</span>.</p></li>
+<li><p><a class="reference external" href="https://youtu.be/Kr6WIYPts8I?t=3157">6 часов про Яндекс.Облако, где в том числе затрагивается виртуальная сеть на TF</a><span class="link-target"> [https://youtu.be/Kr6WIYPts8I?t=3157]</span>.</p></li>
+<li><p><a class="reference external" href="https://docs.openvswitch.org/en/latest/intro/what-is-ovs/">What Is Open vSwitch?</a><span class="link-target"> [https://docs.openvswitch.org/en/latest/intro/what-is-ovs/]</span></p></li>
+<li><p><a class="reference external" href="https://habr.com/ru/post/344326/">Введение в VxLAN</a><span class="link-target"> [https://habr.com/ru/post/344326/]</span>.</p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc7348">RFC 7348. Virtual eXtensible Local Area Network (VXLAN): A Framework for Overlaying Virtualized Layer 2 Networks over Layer 3 Networks</a><span class="link-target"> [https://tools.ietf.org/html/rfc7348]</span>.</p></li>
+<li><p><a class="reference external" href="https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf">Scaleway approach to VXLAN EVPN Fabric</a><span class="link-target"> [https://www.enog.org/wp-content/uploads/presentations/enog-16/18-Scaleway-P14-fabric-ENOG16.pdf]</span>. Тут рассказывается про всю сеть ДЦ, включая Underlay, Overlay, подходы к мульти-хоумингу и управлению.</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>Спасибы</h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se">Роману Горге</a><span class="link-target"> [https://www.linkedin.com/in/roman-gorge-2b15896b/?originalSubdomain=se]</span> - бывшему ведущему подкаста linkmeup, а ныне эксперту в области облачных платформ. За комментарии и правки. Ну и ждём в скором будущем его более глубокой статьи о виртуализации.</p></li>
+<li><p><a class="reference external" href="https://www.alexander-shalimov.com">Александру Шалимову</a><span class="link-target"> [https://www.alexander-shalimov.com]</span> - моему коллеге и эксперту в области разработки виртуальных сетей. За комментарии и правки.</p></li>
+<li><p><a class="reference external" href="https://www.linkedin.com/in/valentine-sinitsyn-b8b3a23a/">Валентину Синицыну</a><span class="link-target"> [https://www.linkedin.com/in/valentine-sinitsyn-b8b3a23a/]</span>- моему коллеге и эксперту в области Tungsten Fabric . За комментарии и правки.</p></li>
+<li><p><a class="reference external" href="http://illustrators.ru/users/rabbits_manufactory">Артёму Чернобаю</a><span class="link-target"> [http://illustrators.ru/users/rabbits_manufactory]</span> - иллюстратору linkmeup. За КДПВ.</p></li>
+<li><p>Александру Лимонову. За мем «automato».</p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

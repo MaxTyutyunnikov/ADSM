@@ -39,7 +39,7 @@ HTTP GET
 | `Все возможные коды ответов <https://en.wikipedia.org/wiki/List_of_HTTP_status_codes>`_.
 
 | Тело возвращается в формате JSON или XML.
-| `Дамп транзакции <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng>`_.
+| `Дамп транзакции 1 <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng>`_.
 
 
 Давайте ещё пару примеров. Теперь мы запросим информацию по конкретному устройству по его имени.
@@ -59,7 +59,7 @@ HTTP GET
        User-Agent: curl/7.54.0
        Accept: application/json; indent=4
 
-`Дамп транзакции <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_by_name.pcapng>`_.
+`Дамп транзакции 2 <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_by_name.pcapng>`_.
 
 
 Если нужно задать пару условий, то запрос будет выглядеть так:
@@ -71,7 +71,7 @@ HTTP GET
 Здесь мы запросили все устройства с ролью **leaf**, расположенные на сайте **mlg**.
 То есть два условия отделяются друг от друга знаком **"&"**.
 
-`Дамп транзакции <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_double_conditions.pcapng>`_.
+`Дамп транзакции 3 <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_double_conditions.pcapng>`_.
 
 | Из любопытного и приятного - если через "&" задать два условия с одним именем, то между ними будет на самом деле не логическое "И", а логическое "ИЛИ".
 | То есть вот такой запрос и в самом деле вернёт два объекта: mlg-leaf-0 и mlg-spine-0
@@ -80,7 +80,7 @@ HTTP GET
 
        curl -X GET "http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&name=mlg-spine-0" -H "Accept: application/json; indent=4"
 
-`Дамп транзакции <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_or_operand.pcapng>`_.
+`Дамп транзакции 4 <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_or_operand.pcapng>`_.
 
 
 Попробуем обратиться к несуществующему URL.
@@ -136,7 +136,7 @@ HTTP POST
    
        JSON
 
-`Дамп транзакции <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_post_new_device.pcapng>`_.
+`Дамп транзакции 5 <https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_post_new_device.pcapng>`_.
 
 Теперь новым запросом с методом GET можно его увидеть в выдаче:
 

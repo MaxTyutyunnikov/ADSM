@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YANG</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="yang">
+<h1>YANG</h1>
+<div class="line-block">
+<div class="line">Оооо, как долго я шёл к этому, как долго я ждал, чтобы разобраться с этой темой.</div>
+<div class="line">Такой манящий и такой недоступный - <strong>YANG</strong> - <em>Yet Another Next Generation</em>, который решит все мои дилеммы автоматизатора, который снимет с меня груз парсинга CLI и приведёт нас всех в новый дивный мир.</div>
+<div class="line">Почему-то казалось, что стоит только понять, что такое YANG - и дальше самой сложной задачей останется оттраблшутить Ансибль и высадиться на Марсе.</div>
+</div>
+<p>YANG, а точнее модели, написанные на нём, не стали серебряной пулей, как не стали ей (пока) NETCONF, OpenConfig, gNMI.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/5/yang-data-model.png" src="https://fs.linkmeup.ru/images/adsm/5/yang-data-model.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>И вообще YANG - вещь весьма академическая. Это просто язык описания моделей. Модели у каждого производителя и под каждую задачу могут быть совершенно разными, но, учитывая, что они все написаны на одном языке, мы можем применять одни и те же подходы и инструменты для работы с ними, и не отращивать ещё новые нейронные связи.</p>
+<p>Вообще-то модели может не быть вовсе, или она может быть описана по-английски или по-русски, вместо YANG. Но при этом в JunOS/VRP/IOS по-прежнему будет какая-то структура данных. Просто в этом случае у вас не будет контракта, и в суд вы обратиться не сможете.
+Это собственно то, как мы и жили прежде.</p>
+<div class="line-block">
+<div class="line">Вообще-то YANG пришёл на помощь NETCONF’у, когда стало понятно, что &lt;s&gt;достаточно разврата - откапывайте SNMP SMI&lt;/s&gt; без моделей дальше никуда ни шагу - и уже достаточно ошибок было совершено.</div>
+<div class="line">YANG - достойный сын SMIng. Когда парни из Network Working Group поняли, что с SNMP у них как-то не выгорело, весь накопленный багаж знаний они пустили на пользу обществу.</div>
+<div class="line">В общем-то, не мудрствуя лукаво, ребята из IETF взяли синтаксическую структуру и базовые типы из SMIng и запилили YANG.</div>
+<div class="line">При разработке YANG решили не совершать ошибок SMIng, который должен был стать универсальным языком под общие задачи, отчего немало страдал - нет, YANG нацеливался исключительно на NETCONF.</div>
+<div class="line">И какова ирония: RESTCONF и gNMI тоже решили использовать YANG - как язык моделирования. Ну логично ведь - не выдумывать 13-й стандарт же (хотя, подождите)?</div>
+</div>
+<p>Но гугл пошёл ещё дальше - gNMI может работать как с YANG-моделями, так и нет. Свободу вариативности! Что, впрочем, вполне логично, ведь в основе gNMI - protobuf’ы gRPC. А они могут как быть созданы на основе YANG-модели, так и просто придуманы из головы, или модель может быть написана не на YANG.</p>
+<p>Как видно, благими намерениями уже тогда - был устлан путь к хьюман-ридабл, мэшин-парсибл.</p>
+<p>Давайте мы не будем закапываться в сам язык - пожалуй, это нужно не очень большому числу людей. Нам интереснее практическая сторона - конкретные модели, как в них найти глазами нужные вещи, как с ними работать программно, какая вообще от них польза.</p>
+<p>Дальше в качестве практики возьмём модель OpenConfig.</p>
+<div class="section" id="id1">
+<h2>Препарируем YANG-модель</h2>
+<p>Давайте ещё раз вспомним пример, как мы собирали данные по конфигурации интерфейсов.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gnmic<span class="w"> </span>get<span class="w"> </span>--path<span class="w"> </span><span class="s2">&quot;/interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/config&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-a<span class="w"> </span>bcn-spine-1.arista:6030<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-u<span class="w"> </span>eucariot<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-p<span class="w"> </span>password<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--insecure
+</pre></div>
+</div>
+</div></blockquote>
+<p>Откуда взялся этот замысловатый путь?</p>
+<p>Для этого нам понадобится взглянуть на <a class="reference external" href="https://github.com/openconfig/public/tree/master/release/models/interfaces">открытый репозиторий OpenConfig</a><span class="link-target"> [https://github.com/openconfig/public/tree/master/release/models/interfaces]</span>.</p>
+<div class="line-block">
+<div class="line">Пристально смотрим…</div>
+<div class="line">Ещё немного…</div>
+<div class="line">Понятно?</div>
+</div>
+<div class="line-block">
+<div class="line">И мне не очень. Чтобы такое читать, надо всё же разбираться с самим языком.</div>
+<div class="line">Нам лень.</div>
+<div class="line">Поэтому воспользуемся помощью библиотеки <code class="docutils literal notranslate"><span class="pre">pyang</span></code>.</div>
+</div>
+</div>
+<div class="section" id="pyang">
+<h2>Pyang</h2>
+<p>Продолжим с примером про интерфейсы.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pyang
+</pre></div>
+</div>
+</div></blockquote>
+<p>В рабочий каталог склоним репу:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/openconfig/public
+</pre></div>
+</div>
+</div></blockquote>
+<p>И дадим вот такую команду:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang<span class="w"> </span>-f<span class="w"> </span>tree<span class="w"> </span>-p<span class="w"> </span>yang/oc/public/release/models/<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
+</pre></div>
+</div>
+</div></blockquote>
+<p>И дальше вываливается много текста:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module:<span class="w"> </span>openconfig-interfaces
+<span class="w">  </span>+--rw<span class="w"> </span>interfaces
+<span class="w">     </span>+--rw<span class="w"> </span>interface*<span class="w"> </span><span class="o">[</span>name<span class="o">]</span>
+<span class="w">        </span>+--rw<span class="w"> </span>name<span class="w">             </span>-&gt;<span class="w"> </span>../config/name
+<span class="w">        </span>+--rw<span class="w"> </span>config
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>name?<span class="w">            </span>string
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span><span class="nb">type</span><span class="w">             </span>identityref
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>mtu?<span class="w">             </span>uint16
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>loopback-mode?<span class="w">   </span>boolean
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>description?<span class="w">     </span>string
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>enabled?<span class="w">         </span>boolean
+<span class="w">        </span>+--ro<span class="w"> </span>state
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>name?<span class="w">            </span>string
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span><span class="nb">type</span><span class="w">             </span>identityref
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>mtu?<span class="w">             </span>uint16
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>loopback-mode?<span class="w">   </span>boolean
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>description?<span class="w">     </span>string
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>enabled?<span class="w">         </span>boolean
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>ifindex?<span class="w">         </span>uint32
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>admin-status<span class="w">     </span>enumeration
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>oper-status<span class="w">      </span>enumeration
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>last-change?<span class="w">     </span>oc-types:timeticks64
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>logical?<span class="w">         </span>boolean
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>management?<span class="w">      </span>boolean
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>cpu?<span class="w">             </span>boolean
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>counters
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span><span class="k">in</span>-octets?<span class="w">             </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span><span class="k">in</span>-pkts?<span class="w">               </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span><span class="k">in</span>-unicast-pkts?<span class="w">       </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span><span class="k">in</span>-broadcast-pkts?<span class="w">     </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span><span class="k">in</span>-multicast-pkts?<span class="w">     </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span><span class="k">in</span>-discards?<span class="w">           </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span><span class="k">in</span>-errors?<span class="w">             </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span><span class="k">in</span>-unknown-protos?<span class="w">     </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span><span class="k">in</span>-fcs-errors?<span class="w">         </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>out-octets?<span class="w">            </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>out-pkts?<span class="w">              </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>out-unicast-pkts?<span class="w">      </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>out-broadcast-pkts?<span class="w">    </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>out-multicast-pkts?<span class="w">    </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>out-discards?<span class="w">          </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>out-errors?<span class="w">            </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>carrier-transitions?<span class="w">   </span>oc-yang:counter64
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>last-clear?<span class="w">            </span>oc-types:timeticks64
+<span class="w">        </span>+--rw<span class="w"> </span>hold-time
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>config
+<span class="w">        </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>up?<span class="w">     </span>uint32
+<span class="w">        </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>down?<span class="w">   </span>uint32
+<span class="w">        </span><span class="p">|</span><span class="w">  </span>+--ro<span class="w"> </span>state
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>up?<span class="w">     </span>uint32
+<span class="w">        </span><span class="p">|</span><span class="w">     </span>+--ro<span class="w"> </span>down?<span class="w">   </span>uint32
+<span class="w">        </span>+--rw<span class="w"> </span>subinterfaces
+<span class="w">           </span>+--rw<span class="w"> </span>subinterface*<span class="w"> </span><span class="o">[</span>index<span class="o">]</span>
+<span class="w">              </span>+--rw<span class="w"> </span>index<span class="w">     </span>-&gt;<span class="w"> </span>../config/index
+<span class="w">              </span>+--rw<span class="w"> </span>config
+<span class="w">              </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>index?<span class="w">         </span>uint32
+<span class="w">              </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>description?<span class="w">   </span>string
+<span class="w">              </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>enabled?<span class="w">       </span>boolean
+<span class="w">              </span>+--ro<span class="w"> </span>state
+<span class="w">                 </span>+--ro<span class="w"> </span>index?<span class="w">          </span>uint32
+<span class="w">                 </span>+--ro<span class="w"> </span>description?<span class="w">    </span>string
+<span class="w">                 </span>+--ro<span class="w"> </span>enabled?<span class="w">        </span>boolean
+<span class="w">                 </span>+--ro<span class="w"> </span>name?<span class="w">           </span>string
+<span class="w">                 </span>+--ro<span class="w"> </span>ifindex?<span class="w">        </span>uint32
+<span class="w">                 </span>+--ro<span class="w"> </span>admin-status<span class="w">    </span>enumeration
+<span class="w">                 </span>+--ro<span class="w"> </span>oper-status<span class="w">     </span>enumeration
+<span class="w">                 </span>+--ro<span class="w"> </span>last-change?<span class="w">    </span>oc-types:timeticks64
+<span class="w">                 </span>+--ro<span class="w"> </span>logical?<span class="w">        </span>boolean
+<span class="w">                 </span>+--ro<span class="w"> </span>management?<span class="w">     </span>boolean
+<span class="w">                 </span>+--ro<span class="w"> </span>cpu?<span class="w">            </span>boolean
+<span class="w">                 </span>+--ro<span class="w"> </span>counters
+<span class="w">                    </span>+--ro<span class="w"> </span><span class="k">in</span>-octets?<span class="w">             </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span><span class="k">in</span>-pkts?<span class="w">               </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span><span class="k">in</span>-unicast-pkts?<span class="w">       </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span><span class="k">in</span>-broadcast-pkts?<span class="w">     </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span><span class="k">in</span>-multicast-pkts?<span class="w">     </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span><span class="k">in</span>-discards?<span class="w">           </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span><span class="k">in</span>-errors?<span class="w">             </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span><span class="k">in</span>-unknown-protos?<span class="w">     </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span><span class="k">in</span>-fcs-errors?<span class="w">         </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span>out-octets?<span class="w">            </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span>out-pkts?<span class="w">              </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span>out-unicast-pkts?<span class="w">      </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span>out-broadcast-pkts?<span class="w">    </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span>out-multicast-pkts?<span class="w">    </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span>out-discards?<span class="w">          </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span>out-errors?<span class="w">            </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span>carrier-transitions?<span class="w">   </span>oc-yang:counter64
+<span class="w">                    </span>+--ro<span class="w"> </span>last-clear?<span class="w">            </span>oc-types:timeticks64
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Неплохо. С такими аргументами pyang представляет модель в виде дерева, выбрасывая несущественные данные.</div>
+<div class="line">Здесь сразу видно, на каком уровне иерархии что находится, какой у него тип и режим - rw или ro.</div>
+<div class="line">Постойте, но где же ipv4, который в запросе gnmic? Тут его явно нет. А в запросе и ответе явно был - то есть где-то он должен существовать и в модели.</div>
+<div class="line">Взглянем ещё раз на директорию. И повторим pyang:</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang<span class="w"> </span>-f<span class="w"> </span>tree<span class="w">  </span>-p<span class="w"> </span>yang/oc/public/release/models/<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>yang/oc/public/release/models/interfaces/openconfig-if-ip.yang<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+
+module:<span class="w"> </span>openconfig-if-ip
+
+<span class="w">  </span>augment<span class="w"> </span>/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface:
+<span class="w">    </span>+--rw<span class="w"> </span>ipv4
+<span class="w">       </span>+--rw<span class="w"> </span>addresses
+<span class="w">       </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>address*<span class="w"> </span><span class="o">[</span>ip<span class="o">]</span>
+<span class="w">       </span><span class="p">|</span><span class="w">     </span>+--rw<span class="w"> </span>ip<span class="w">        </span>-&gt;<span class="w"> </span>../config/ip
+<span class="w">       </span><span class="p">|</span><span class="w">     </span>+--rw<span class="w"> </span>config
+<span class="w">       </span><span class="p">|</span><span class="w">     </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>ip?<span class="w">              </span>oc-inet:ipv4-address
+<span class="w">       </span><span class="p">|</span><span class="w">     </span><span class="p">|</span><span class="w">  </span>+--rw<span class="w"> </span>prefix-length?<span class="w">   </span>uint8
+</pre></div>
+</div>
+</div></blockquote>
+<p>Вот и он во всей красе. И тут видно, что это аугментация к модели <code class="docutils literal notranslate"><span class="pre">/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface</span></code>.</p>
+<p>А что такое <cite>oc-if</cite>?</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>less<span class="w"> </span>yang/oc/public/release/models/interfaces/openconfig-interfaces.yang<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^ *prefix&#39;</span>
+prefix<span class="w"> </span><span class="s2">&quot;oc-if&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Итак, у модели есть короткий префикс для более удобного обращения к ней. Он используется в другой модели, чтобы сделать его аугментацию.</div>
+<div class="line">Так можно просто проверить корректность</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyang<span class="w"> </span>-p<span class="w"> </span>yang/oc/public/release/models/<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>yang/oc/public/release/models/interfaces/openconfig-interfaces.yang
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Ключ <code class="docutils literal notranslate"><span class="pre">-f</span></code> позволяет конвертировать в разные форматы: <code class="docutils literal notranslate"><span class="pre">tree</span></code>, <code class="docutils literal notranslate"><span class="pre">yin</span></code>, <code class="docutils literal notranslate"><span class="pre">yang</span></code>, <code class="docutils literal notranslate"><span class="pre">jstree</span></code>, <code class="docutils literal notranslate"><span class="pre">uml</span></code> и другие.</div>
+<div class="line">Для нас интереснее всего <code class="docutils literal notranslate"><span class="pre">tree</span></code> и <code class="docutils literal notranslate"><span class="pre">uml</span></code>, потому что вот такие крутые картинки можно рисовать для визуалов</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png" src="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png" style="width: 800px;" />
+</div>
+<p>Чтобы конвертировать uml в png можно воспользоваться пакетом plantuml. <a class="reference external" href="https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png">Ссылка на картинку побольше</a><span class="link-target"> [https://fs.linkmeup.ru/images/adsm/5/openconfig-interfaces.png]</span></p>
+</div></blockquote>
+<p>С помощью pyang, конечно, можно работать не только с моделями OpenConfig, но и с любыми другими, написанными на языке YANG.</p>
+<p><a class="reference external" href="https://www.ietf.org/proceedings/90/slides/slides-90-edu-yang-0.pdf">Место, где неплохо описан pyang</a><span class="link-target"> [https://www.ietf.org/proceedings/90/slides/slides-90-edu-yang-0.pdf]</span>.</p>
+<p>А <a class="reference external" href="https://ultraconfig.com.au/blog/learn-yang-full-tutorial-for-beginners/">тут</a><span class="link-target"> [https://ultraconfig.com.au/blog/learn-yang-full-tutorial-for-beginners/]</span> бравые парни из Австралии пишут свою модель. С этой работой будет полезно ознакомиться тем, кто хочет разобраться поглубже в языке YANG.</p>
+<p>На сегодняшний день многие вендоры поддерживают YANG-схему для своих NETCONF/gNMI-интерфейсов.</p>
+<p>Есть несколько мест, где их можно раздобыть:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/YangModels/yang/tree/master/vendor">Официальный репозиторий YANG</a><span class="link-target"> [https://github.com/YangModels/yang/tree/master/vendor]</span>. Тут есть ссылки на гитхабы вендоров, которые публикуют свои модели.</p></li>
+<li><p>Но Huawei, например, хранит свои YANG-и в нескольких местах (<a class="reference external" href="https://github.com/Huawei/yang/">https://github.com/Huawei/yang/</a> и <a class="reference external" href="https://github.com/HuaweiDatacomm/yang">https://github.com/HuaweiDatacomm/yang</a>)</p></li>
+<li><p>Отдельно так же лежат схемы аристы: <a class="reference external" href="https://github.com/aristanetworks/yang">https://github.com/aristanetworks/yang</a></p></li>
+<li><p>Некоторые вендоры могут хранить их на своих сайтах.</p></li>
+</ul>
+<p>В общем, собираем с репы по коммиту.</p>
+<div class="line-block">
+<div class="line">Замечательная новость в том, что все коробки, заявляющие своё соответствие RFC6022 должны уметь возвращать всю YANG-схему по запросу с операцией <code class="docutils literal notranslate"><span class="pre">&lt;get_schema&gt;</span></code>.</div>
+<div class="line">Отвратительная новость в том, что не все вендоры эту операцию поддерживают.</div>
+</div>
+<div class="section" id="id6">
+<h3>Что нужно знать про YANG?</h3>
+<div class="line-block">
+<div class="line">Это способ описать структуру данных, но не сами данные.</div>
+<div class="line">Сами данные могут быть представлены в любом формате, поддерживающем структуры: XML, JSON, Protobuf, объекты Python.</div>
+<div class="line">YANG придумывали не для того, чтобы решить общую задачу, он нацелен на конкретно NETCONF и конкретно XML-кодирование. Но его смогли присобачить и к другим интерфейсам.</div>
+</div>
+<p>Я бы взял на себя смелость сказать, что NETCONF/YANG - это как TCP/IP. То есть там и про NETCONF, и про YANG. Однако не только NETCONF.</p>
+<div class="line-block">
+<div class="line">Очевидно, YANG - огромная тема, которой будет тесно даже на страницах отдельной книги. В этой статье мне хотелось только приоткрыть первый её разворот, на котором ещё нет пугающих выкладок.</div>
+<div class="line">Возможно, когда-то, если я осознаю неизбежность его повсеместного проявления, я напишу отдельную огромную статью и о нём. А пока положим достаточным эти едва ли заметные тропинки.</div>
+</div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

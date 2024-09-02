@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Архитектура системы</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Архитектура системы</h1>
+<ul>
+<li><p>NetBox написан на Python3. Что хорошо, потому что ряд других решений написан на php и изменять их при необходимости не так уж просто.</p></li>
+<li><p>Фреймворк для самого сайта - Django.</p></li>
+<li><p>В качестве БД используется PostgreSQL.</p></li>
+<li><p>WEB-frontend (HTTP-сревис) - NGINX - он проксирует запросы в Gunicron.</p></li>
+<li><p>WSGI - Gunicorn - интерфейс между Nginx и самим приложением.</p></li>
+<li><p>Фреймворк для документации по API - Swagger.</p></li>
+<li><p>Чтобы демонизировать NetBox - Systemd.</p>
+<blockquote>
+<div><p>NetBox - проект молодой и быстро развивающийся. Например, в 2.7 отказались от supervisord и тянущегося за ним Python 2.7 в пользу systemd. Не так давно там не было ни кэширования, ни Webhooks.
+Поэтому меняется всё быстро и информация в статье может устареть к моменту чтения.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>Иными словами все компоненты зрелые и проверенные.</p>
+<p>По словам автора NetBox отражает не реальное состояние сети, а целевое. Поэтому ничего не подгружается в NetBox из сети - это сеть настраивается в соответствие с содержимым NetBox.
+Таким образом NetBox выступает единственным источником истины (калька с single source of truth).
+И изменения на сети должны быть инициированы изменениями в NetBox.
+А это очень неплохо ложится на идеологию, которую я исповедую в этой серии статей - хочешь сделать изменения на сети - сначала внеси их в системы.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

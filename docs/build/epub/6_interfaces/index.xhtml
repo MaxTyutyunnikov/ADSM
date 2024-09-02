@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Часть 6. Интерфейсы взаимодействия с сетевым устройством</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Часть 6. Интерфейсы взаимодействия с сетевым устройством</h1>
+<div class="line-block">
+<div class="line">В этой части мы раскрываем дерево XML, пробуем на вкус капабилити NETCONF, шлём первые RPC и наконец уже расставим в правильном порядке буквы YANG, OpenConfig, gNMI.</div>
+<div class="line">Практическую пользу вам принесут только обе прочитанные статьи. Вторая без первой будет непонятна. Первая без второй - беллетристика.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/5/kdpv1.png" src="https://fs.linkmeup.ru/images/adsm/5/kdpv1.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Сразу предупреждаю, что это будет большая и нудная статья, потому что автор в очередной раз решил разобраться в чём-то, и опубликовать это разом. И вам, клянусь, ещё повезло, когда на двухсоттысячном символе я придумал, как её можно разделить на две части.</div>
+<div class="line">Тут разберём по косточкам все возможные способы взаимодействия с сетевым железом.</div>
+<div class="line">Лишь вскользь мы заденем CLI и SNMP, как не имеющие практической значимости в контексте этой статьи, разберёмся достаточно глубоко с NETCONF - это новый SNMP или всё же у него есть будущее хотя бы с YANG’ом, продолжим RESTCONF’ом и закончим на интригующем - gRPC.</div>
+<div class="line">Ну а по ходу неминуемо разберёмся с тем, за что с нашими глазами так поступает XML, с концепцией RPC, моделями данных и успеем посмотреть на OpenConfig.</div>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cli.xhtml">CLI - Command Line Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.xhtml#cli">9 грехов CLI</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.xhtml">Концепция RPC - Russian Pravoslavnaya Church</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rpc.xhtml#id1">Пример</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="netconf.xhtml">NETCONF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="netconf.xhtml#id1">NETCONF и его команды</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xml.xhtml">&lt;XML&gt;</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xml.xhtml#xml-prolog">XML Prolog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.xhtml#id3">Дерево элементов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.xhtml#id4">Атрибуты</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.xhtml#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.xhtml#xpath-xml-path">Xpath - XML Path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml.xhtml#id7">Схема</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="netconf_again.xhtml">NETCONF Again</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="netconf_again.xhtml#id1">Действия, операции</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf_again.xhtml#netconf">Инструменты разработчика для NETCONF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netconf_again.xhtml#id7">Как это использовать</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="restconf.xhtml">RESTCONF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callhome.xhtml">Call-Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grpc.xhtml">gRPC/gNMI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="grpc.xhtml#grpc">gRPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.xhtml#gnmi">gNMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.xhtml#gnoi">gNOI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grpc.xhtml#telemetry">Telemetry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models.xhtml">Модели данных</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.xhtml#native">Native</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.xhtml#id3">Вендор-нейтральные модели</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="yang.xhtml">YANG</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="yang.xhtml#id1">Препарируем YANG-модель</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yang.xhtml#pyang">Pyang</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="model_driven.xhtml">Model Driven Programmability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="onemoretime.xhtml">Всё вместе</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="onemoretime.xhtml#id2">И ещё другими словами</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="links.xhtml">Полезные ссылки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.xhtml">Заключение</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.xhtml#id3">Благодарности</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

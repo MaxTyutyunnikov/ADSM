@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Заключение</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Заключение</h1>
+<div class="line-block">
+<div class="line">Так же принято? Под каждой статьёй делать короткий вывод?</div>
+<div class="line">Итак мы выбрали <a class="reference external" href="https://linkmeup.ru/blog/480.html">трёхуровневую</a><span class="link-target"> [https://linkmeup.ru/blog/480.html]</span> сеть Клоза внутри ДЦ, поскольку ожидаем много East-West трафика и хотим ECMP.</div>
+<div class="line">Разделили сеть на физическую (андерлей) и виртуальную (оверлей). При этом оверлей начинается с хоста - тем самым упростили требования к андерлею.</div>
+<div class="line">Выбрали BGP в качестве протокола маршрутизации анедрелейных сетей за его масштабируемость и гибкость политик.</div>
+<div class="line">У нас будут отдельные узлы для организации DCI - Edge-leaf.</div>
+<div class="line">На магистрали будет OSPF+LDP.</div>
+<div class="line">DCI будет реализован на основе MPLS L3VPN.</div>
+<div class="line">Для P2P-линков IP-адреса мы будем вычислять алгоритмически на основе  имён устройств.</div>
+<div class="line">Лупбэки будем назначать по роли устройств и их расположению последовательно.</div>
+<div class="line">Андерлейные префиксы - только на Leaf-коммутаторы последовательно на основе их расположения.</div>
+</div>
+<div class="line-block">
+<div class="line">Предположим, что прямо сейчас у нас ещё не установлено оборудование.</div>
+<div class="line">Поэтому наши следующие шаги будут - завести их в системах (IPAM, инвентарная), организовать доступ, сгенерировать конфигурацию и задеплоить её.</div>
+</div>
+<p>В следующей статье разберёмся с Netbox - системой инвентаризации и управления IP-пространством в ДЦ.</p>
+<div class="section" id="id3">
+<h2>Спасибы</h2>
+<ul class="simple">
+<li><p>Андрею Глазкову aka &#64;glazgoo за вычитку и правки</p></li>
+<li><p>Александру Клименко aka &#64;v00lk за вычитку и правки</p></li>
+<li><p>Артёму Чернобаю за КДПВ</p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

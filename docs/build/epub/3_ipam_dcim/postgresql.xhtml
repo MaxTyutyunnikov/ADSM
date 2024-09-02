@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Немного о PostgreSQL</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="postgresql">
+<h1>Немного о PostgreSQL</h1>
+<p>Для подключения к серверу:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>psql<span class="w"> </span>-U<span class="w"> </span>*username*<span class="w"> </span>-h<span class="w"> </span>*hostname*<span class="w"> </span>*db_name*
+</pre></div>
+</div>
+</div></blockquote>
+<p>Например:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>psql<span class="w"> </span>-U<span class="w"> </span>netbox<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>netbox
+</pre></div>
+</div>
+</div></blockquote>
+<p>Для вывода всех таблиц:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/dt
+</pre></div>
+</div>
+</div></blockquote>
+<p>Для выхода:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/q
+</pre></div>
+</div>
+</div></blockquote>
+<p>Для дампа БД:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pg_dump<span class="w"> </span>-U<span class="w"> </span>*username*<span class="w"> </span>-h<span class="w"> </span>*hostname*<span class="w"> </span>*db_name*<span class="w"> </span>&gt;<span class="w"> </span>netbox.sql
+</pre></div>
+</div>
+</div></blockquote>
+<p>Если не хочется каждый раз вводить пароль:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span>*:*:*:*username*:*password*<span class="w"> </span>&gt;<span class="w"> </span>~/.pgpass
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.pgpass
+</pre></div>
+</div>
+</div></blockquote>
+<p>Если у вас есть своя инсталляция и не хочется вносить всё руками, можно просто сделать так, взяв дамп текущей БД NetBox <a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/netbox_initial_db.sql">тут</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/netbox_initial_db.sql]</span>:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>psql<span class="w"> </span>-U<span class="w"> </span>*username*<span class="w"> </span>-h<span class="w"> </span>*hostname*<span class="w"> </span>*db_name*<span class="w"> </span>&lt;<span class="w"> </span>netbox_initial_db.sql
+</pre></div>
+</div>
+</div></blockquote>
+<p>Если предварительно нужно дропнуть все таблицы (а сделать это придётся), то можно подготовить заранее файл:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>psql<span class="w"> </span>-U<span class="w"> </span>*username*<span class="w"> </span>-h<span class="w"> </span>*hostname*<span class="w"> </span>*db_name*
+<span class="se">\o</span><span class="w"> </span>drop_all_tables.sql
+<span class="k">select</span><span class="w"> </span><span class="s1">&#39;drop table &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>tablename<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39; cascade;&#39;</span><span class="w"> </span>from<span class="w"> </span>pg_tables<span class="p">;</span>
+<span class="se">\q</span>
+psql<span class="w"> </span>-U<span class="w"> </span>*username*<span class="w"> </span>-h<span class="w"> </span>*hostname*<span class="w"> </span>*db_name*<span class="w"> </span>-f<span class="w"> </span>drop_all_tables.sql
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Лаба</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Лаба</h1>
+<p>Два вендора. Одна сеть. АДСМ.</p>
+<p>Juniper + Arista. Ubuntu. Старая добрая Ева.</p>
+<p>Количество ресурсов на нашей виртуалочке в Миране всё же ограничено, поэтому для практики мы будем использовать вот такую упрощённую до предела сеть.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/2/lab.png" src="https://fs.linkmeup.ru/images/adsm/2/lab.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Два датацентра: Казань и Барселона.</p></li>
+<li><p>По два спайна в каждом: Juniper и Arista.</p></li>
+<li><p>По одному тору (Leaf’у) в каждом - Juniper и Arista, с одним подключенным хостом (возьмём легковесный Cisco IOL для этого).</p></li>
+<li><p>По одной ноде Edge-Leaf (пока только Juniper).</p></li>
+<li><p>One Cisco switch to rule them all.</p></li>
+<li><dl class="simple">
+<dt>Помимо сетевых коробок запущена виртуальная машина-управляка. Под управлением Ubuntu.</dt><dd><p>Она имеет доступ ко всем устройствам, на ней будут крутиться IPAM/DCIM-системы, букет питоновских скриптов, анзибль и что угодно ещё, что нам может понадобиться.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/tree/master/docs/source/2_network_design/target_configs">Полная конфигурация</a><span class="link-target"> [https://github.com/eucariot/ADSM/tree/master/docs/source/2_network_design/target_configs]</span> всех сетевых устройств, которую мы будем пробовать воспроизвести с помощью автоматики.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

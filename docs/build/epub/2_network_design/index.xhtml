@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Часть 2. Дизайн сети</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Часть 2. Дизайн сети</h1>
+<p>В первых двух статьях я поднял вопрос автоматизации и набросал её фреймворк, во второй сделал отступление в виртуализацию сети, как первый подход к автоматизации настройки сервисов.
+А теперь пришло время нарисовать схему физической сети.</p>
+<p>Если вы не на короткой ноге с устройством сетей датацентров, то я настоятельно рекомендую начать со <a class="reference external" href="https://linkmeup.ru/blog/480.html">статьи о них</a><span class="link-target"> [https://linkmeup.ru/blog/480.html]</span>.</p>
+<p>Описанные в этой серии практики должны быть применимы к сети любого типа, любого масштаба с любым многообразием вендоров (нет). Однако нельзя описать универсальный пример применения этих подходов. Поэтому я остановлюсь на современной архитектуре сети ДЦ: <a class="reference external" href="https://linkmeup.ru/blog/480.html">Фабрике Клоза</a><span class="link-target"> [https://linkmeup.ru/blog/480.html]</span>.
+DCI сделаем на  MPLS L3VPN.
+Поверх физической сети работает Overlay-сеть с хоста (это может быть VXLAN OpenStack’а или Tungsten Fabric или что угодно другое, что требует от сети только базовой IP-связности).</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/2/kdpv_small.jpg" src="https://fs.linkmeup.ru/images/adsm/2/kdpv_small.jpg" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>В этом случае получится сравнительно простой сценарий для автоматизации, потому что имеем много оборудования, настраивающегося одинаковым образом.
+Мы выберем сферический ДЦ в вакууме:</p>
+<ul class="simple">
+<li><p>Одна версия дизайна везде</p></li>
+<li><p>Два вендора, образующих две плоскости сети</p></li>
+<li><p>Один ДЦ похож на другой как две капли воды</p></li>
+</ul>
+<p>Пусть наш Сервис-Провайдер LAN_DC будет, например, хостить обучающие видео о выживании в застрявших лифтах.
+В мегаполисах это пользуется бешенной популярностью, поэтому физических машин надо много.</p>
+<p>Сначала я опишу сеть приблизительно такой, какой бы её хотелось видеть. А потом упрощу для лабы.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Дизайн сети:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="topology.xhtml">Физическая Топология</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topology.xhtml#id2">Локации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topology.xhtml#intra-dc">Внутри ДЦ (Intra-DC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topology.xhtml#dci-data-center-interconnect-inter-dc">DCI - Data Center Interconnect (Inter-DC)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="routing.xhtml">Маршрутизация</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="routing.xhtml#id3">Политики маршрутизации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.xhtml#bgp-asn">BGP ASN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ip_plan.xhtml">IP-план</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab.xhtml">Лаба</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.xhtml">Заключение</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.xhtml#id3">Спасибы</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

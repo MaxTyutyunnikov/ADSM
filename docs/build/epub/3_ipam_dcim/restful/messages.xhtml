@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Структура сообщений HTTP</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="http">
+<h1>Структура сообщений HTTP</h1>
+<p>HTTP-сообщение состоит из трёх частей, только первая из которых является обязательной.</p>
+<ul class="simple">
+<li><p>Стартовая строка</p></li>
+<li><p>Заголовки</p></li>
+<li><p>Тело сообщения</p></li>
+</ul>
+<div class="section" id="id1">
+<h2>Стартовая строка</h2>
+<p>Стартовые строки HTTP-запроса и ответа выглядят по-разному.</p>
+<div class="section" id="id2">
+<h3>HTTP-Запрос</h3>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>METHOD<span class="w"> </span>URI<span class="w"> </span>HTTP_VERSION
+</pre></div>
+</div>
+<p><strong>Метод</strong> определяет, какое действие клиент хочет совершить: получить данные, создать объект, обновить его, удалить.
+<strong>URI</strong> - идентификатор ресурса, куда клиент обращается или иными словами путь к ресурсу/документу.
+<strong>HTTP_VERSION</strong> - соответственно версия HTTP. На сегодняшний день для REST это всегда 1.1.</p>
+</div></blockquote>
+<dl>
+<dt>Пример:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET<span class="w"> </span>/api/dcim/devices/1/<span class="w"> </span>HTTP/1.1
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h3>HTTP-Ответ</h3>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HTTP_VERSION<span class="w"> </span>STATUS_CODE<span class="w"> </span>REASON_PHRASE
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><strong>HTTP_VERSION</strong> - версия HTTP (1.1).</div>
+<div class="line"><strong>STATUS_CODE</strong> - три цифры кода состояния (200, 404, 502 итд)</div>
+<div class="line"><strong>REASON_PHRASE</strong> - Пояснение (OK, NOT FOUND, BAD GATEWAY итд)</div>
+</div>
+</div></blockquote>
+<dl>
+<dt>Пример:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HTTP/1.1<span class="w"> </span><span class="m">200</span><span class="w"> </span>OK
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Заголовки</h2>
+<p>В заголовках передаются параметры данной HTTP-транзакции.</p>
+<p>Например, в примере выше в  HTTP-запросе это были:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Host:<span class="w"> </span>netbox.linkmeup.ru:45127
+User-Agent:<span class="w"> </span>curl/7.54.0
+Accept:<span class="w"> </span>application/json<span class="p">;</span><span class="w"> </span><span class="nv">indent</span><span class="o">=</span><span class="m">4</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>В них указано, что</p>
+<ul class="simple">
+<li><p>Обращаемся к хосту <strong>netbox.linkmeup.ru:45127</strong>,</p></li>
+<li><p>Запрос был сгенерирован в <strong>curl</strong>,</p></li>
+<li><p>А принимаем данные в формате <strong>JSON</strong> с отступом <strong>4</strong>.</p></li>
+</ul>
+<p>А вот какие заголовки были в HTTP-ответе:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Server:<span class="w"> </span>nginx/1.14.0<span class="w"> </span><span class="o">(</span>Ubuntu<span class="o">)</span>
+Date:<span class="w"> </span>Tue,<span class="w"> </span><span class="m">21</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2020</span><span class="w"> </span><span class="m">15</span>:14:22<span class="w"> </span>GMT
+Content-Type:<span class="w"> </span>application/json
+Content-Length:<span class="w"> </span><span class="m">1638</span>
+Connection:<span class="w"> </span>keep-alive
+</pre></div>
+</div>
+</div></blockquote>
+<p>В них указано, что</p>
+<ul class="simple">
+<li><p>Тип сервера: <strong>nginx на Ubuntu</strong>,</p></li>
+<li><p>Время формирования ответа,</p></li>
+<li><p>Формат данных в ответе: <strong>JSON</strong></p></li>
+<li><p>Длина данных в ответе: <strong>1638 байтов</strong></p></li>
+<li><p>Соединение не нужно закрывать - ещё будут данные.</p></li>
+</ul>
+<p>Заголовки, как вы уже заметили, выглядят как пары имя:значение, разделённые знаком «:».</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">Полный список возможных заголовков</a><span class="link-target"> [https://en.wikipedia.org/wiki/List_of_HTTP_header_fields]</span>.</p>
+</div>
+<div class="section" id="id6">
+<h2>Тело HTTP-сообщения</h2>
+<p>Тело используется для передачи собственно данных.
+В HTTP-ответе это может быть HTML-страничка, или в нашем случае JSON-объект.</p>
+<p>Между заголовками и телом должна быть как минимум одна пустая строка.</p>
+<p>При использовании метода GET в HTTP-запросе обычно никакого тела нет, потому что передавать нечего. Но тело есть в HTTP-ответе.
+А вот например, при POST уже и в запросе будет тело. Давайте о методах и поговорим теперь.</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Часть 5. История сетевой автоматизации</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Часть 5. История сетевой автоматизации</h1>
+<div class="line-block">
+<div class="line">В этой части разбираемся, как мы оказались в том месте, где мы находимся, и куда ведёт нас этот путь.</div>
+<div class="line">Практическую пользу вам принесут только обе прочитанные части: 5 и 6. Вторая без первой будет непонятна. Первая без второй - беллетристика.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/5/kdpv0.png" src="https://fs.linkmeup.ru/images/adsm/5/kdpv0.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Когда началась история сетевой автоматизации?</div>
+<div class="line">С Ansible в 2018? С ним она явно получила ускорение благодаря безагентной природе.</div>
+<div class="line">Не. До него были голые языки на букву «P»: Python, Perl, PHP.</div>
+</div>
+<p>С NETCONF? Точно нет, CLI ещё мой дед парсил. А уж сколько expect’ов там поработало…</p>
+<p>SNMP - вот что приходит на ум в качестве первого подхода - он родом из 90-х.</p>
+<p>Однако как насчёт перехода от коммутации каналов к коммутации пакетов? Нельзя ли назвать динамическую сеть, не требующую мгновенного ручного вмешательства при обрывах, разновидностью автоматизации?</p>
+<p>А первый декадно-шаговый искатель, разработанный Строуджером в 19-м веке и раз и навсегда избавивший мир от ручного труда телефонисток?</p>
+<p>Да и в целом даже сам факт появления телефонных станций взамен почты, курьеров и гонцов?</p>
+<div class="line-block">
+<div class="line">Весь наш мир последние лет 300 безостановочно гонится за ускорением. Людей становится всё больше (Индия вон обогнала уже Китай), но их труд всё дороже (не в Индии). И в этом помогает автоматизация.</div>
+<div class="line">300 лет! Тем временем в сфере сетевых технологий сложилось мнение, что тут всё замерло, мы топчемся на месте, изобретая велосипеды. Но это лишь из-за того, что мы берём довольно короткий период времени и гораздо больший акцент делаем на текущем моменте, нежели на тенденции.</div>
+<div class="line">Как говорится, мы склонны переоценивать краткосрочные последствия и недооценивать долгосрочные.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/5/humor.png" src="https://fs.linkmeup.ru/images/adsm/5/humor.png" style="width: 800px;" />
+</div>
+<p>Источник: <a class="reference external" href="https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2020/pdf/BRKNMS-2032.pdf">доклад на Cisco Live</a><span class="link-target"> [https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2020/pdf/BRKNMS-2032.pdf]</span></p>
+</div></blockquote>
+<p>В этой статье посмотрим, сколько всего в эти 30 лет уместилось.
+А уместилось немало.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cli.xhtml">One CLI to rule them all</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snmp.xhtml">SNMP - и не simple, и не management, и не short term</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_rpc.xhtml">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_rpc.xhtml#rpc-remote-procedure-call">RPC - Remote Procedure Call</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="netconf.xhtml">NETCONF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restconf.xhtml">RESTCONF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.xhtml">Модели и языки</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.xhtml#yang">YANG, который (по-)меняет мир</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.xhtml#id3">Виды моделей</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="grpc.xhtml">gRPC/gNMI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="grpc.xhtml#id1">gRPC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nowdays.xhtml">Настоящее сетевой автоматизации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future.xhtml">Видимое будущее</a></li>
+<li class="toctree-l1"><a class="reference internal" href="horizon.xhtml">Шаг за горизонт</a></li>
+<li class="toctree-l1"><a class="reference internal" href="links.xhtml">Полезные ссылки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.xhtml">Заключение</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.xhtml#id3">Благодарности</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

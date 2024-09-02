@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Способы работы с RESTful API</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="restful-api">
+<h1>Способы работы с RESTful API</h1>
+<p>Curl - это, конечно, очень удобно для доблестных воинов CLI, но есть инструменты получше:</p>
+<ul class="simple">
+<li><p>Графическая утилита Postman</p></li>
+<li><p>Библиотека requests в Python</p></li>
+<li><p>Python SDK для NetBox Pynetbox</p></li>
+<li><p>API-фреймворк Swagger</p></li>
+</ul>
+<div class="section" id="postman">
+<h2>Postman</h2>
+<div class="line-block">
+<div class="line">Postman позволяет в графическом интерфейсе формировать запросы, выбирая методы, заголовки, тело, и отображает результат в удобочитаемом виде.</div>
+<div class="line">Кроме того запросы и URI можно сохранять и возвращаться к ним позже.</div>
+</div>
+<p><a class="reference external" href="https://www.getpostman.com/downloads/">Скачать Postman на оф.сайте</a><span class="link-target"> [https://www.getpostman.com/downloads/]</span>.</p>
+<p>Так мы можем сделать GET:</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/postman_get.png" src="https://fs.linkmeup.ru/images/adsm/3/postman_get.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p><em>Здесь указан Token в GET только для примера.</em></p>
+<p>А так POST:</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/postman_post.png" src="https://fs.linkmeup.ru/images/adsm/3/postman_post.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>Postman служит только для работы с RESTful API.</p>
+<blockquote>
+<div><p>Например, не пытайтесь через него отправить NETCONF XML, как это делал я на заре своей автоматизационной карьеры.</p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Один из приятных бонусов специфицированного API в том, что вы можете в Postman импортировать все эндпоинты и их методы как коллекцию.</div>
+<div class="line">Для этого в окне <strong>Import</strong> (File-&gt;Import) выберите <strong>Import From Link</strong> и вставьте в окно URL <a class="reference external" href="http://netbox.linkmeup.ru:45127/api/docs/?format=openapi">http://netbox.linkmeup.ru:45127/api/docs/?format=openapi</a>.</div>
+</div>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/postman_import.png" src="https://fs.linkmeup.ru/images/adsm/3/postman_import.png" style="width: 400px;" />
+</div>
+</div></blockquote>
+<p>Далее, всё, что только можно, вы найдёте в коллекциях.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/postman_collections.png" src="https://fs.linkmeup.ru/images/adsm/3/postman_collections.png" style="width: 200px;" />
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="python-requests">
+<h2>Python+requests</h2>
+<div class="line-block">
+<div class="line">Но даже через Postman вы, скорее всего, не будете управлять своими Production-системами. Наверняка, у вас будут внешние приложения, которые захотят без вашего участия взаимодействовать с ними.</div>
+<div class="line">Например, система генерации конфигурации захочет забрать список IP-интерфейсов из NetBox.</div>
+<div class="line">В Python есть чудесная библиотека <strong>requests</strong>, которая реализует работу через HTTP.</div>
+<div class="line">Пример запроса списка всех устройств:</div>
+</div>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span> <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
+<span class="n">NB_URL</span> <span class="o">=</span> <span class="s2">&quot;http://netbox.linkmeup.ru:45127&quot;</span>
+
+<span class="n">request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">NB_URL</span><span class="si">}</span><span class="s2">/api/dcim/devices/&quot;</span>
+<span class="n">devices</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">HEADERS</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">devices</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_get_devices.py">Код скрипта на github</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_get_devices.py]</span>.</p>
+<p>Снова добавим новое устройство:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">API_TOKEN</span> <span class="o">=</span> <span class="s2">&quot;a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span>
+<span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Token </span><span class="si">{</span><span class="n">API_TOKEN</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span> <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
+<span class="n">NB_URL</span> <span class="o">=</span> <span class="s2">&quot;http://netbox.linkmeup.ru:45127&quot;</span>
+
+<span class="n">request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">NB_URL</span><span class="si">}</span><span class="s2">/api/dcim/devices/&quot;</span>
+
+<span class="n">device_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;just a simple REQUESTS girl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;device_type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;device_role&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">new_device</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">request_url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">HEADERS</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">device_parameters</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_device</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_post_new_device.py">Код скрипта на github</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_post_new_device.py]</span>.</p>
+</div>
+<div class="section" id="python-netbox-sdk">
+<h2>Python+NetBox SDK</h2>
+<p>В случае NetBox есть также Python SDK - <a class="reference external" href="https://github.com/digitalocean/pynetbox">Pynetbox</a><span class="link-target"> [https://github.com/digitalocean/pynetbox]</span>, который представляет все Endpoint’ы NetBox в виде объекта и его атрибутов, делая за вас всю грязную работу по формированию URI и парсингу ответа, хотя и не бесплатно, конечно.</p>
+<p>Например, сделаем то же, что и выше, использую pynetbox.
+Список всех устройств:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynetbox</span>
+
+<span class="n">NB_URL</span> <span class="o">=</span> <span class="s2">&quot;http://netbox.linkmeup.ru:45127&quot;</span>
+<span class="n">nb</span> <span class="o">=</span> <span class="n">pynetbox</span><span class="o">.</span><span class="n">api</span><span class="p">(</span><span class="n">NB_URL</span><span class="p">)</span>
+
+<span class="n">devices</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/pynetbox_get_devices.py">Кот скрипта на github</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/pynetbox_get_devices.py]</span>.</p>
+<p>Добавить новое устройство:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynetbox</span>
+
+<span class="n">API_TOKEN</span> <span class="o">=</span> <span class="s2">&quot;a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span>
+<span class="n">NB_URL</span> <span class="o">=</span> <span class="s2">&quot;http://netbox.linkmeup.ru:45127&quot;</span>
+<span class="n">nb</span> <span class="o">=</span> <span class="n">pynetbox</span><span class="o">.</span><span class="n">api</span><span class="p">(</span><span class="n">NB_URL</span><span class="p">,</span> <span class="n">token</span> <span class="o">=</span> <span class="n">API_TOKEN</span><span class="p">)</span>
+
+<span class="n">device_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;just a simple PYNETBOX girl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;device_type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;device_role&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">new_device</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">device_parameters</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_device</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_post_new_device.py">Скот скрипта на github</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/scripts/requests_post_new_device.py]</span>.</p>
+<p><a class="reference external" href="https://pynetbox.readthedocs.io/en/latest/">Документация по Pynetbox</a><span class="link-target"> [https://pynetbox.readthedocs.io/en/latest/]</span>.</p>
+</div>
+<div class="section" id="swagger">
+<h2>SWAGGER</h2>
+<p>За что ещё стоит поблагодарить ушедшее десятилетие, так это за спецификации API. Если вы перейдёте по <a class="reference external" href="http://netbox.linkmeup.ru:45127/api/docs/">этому пути</a><span class="link-target"> [http://netbox.linkmeup.ru:45127/api/docs/]</span>, то попадёте в Swagger UI - документацию по API Netbox.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/swagger.png" src="https://fs.linkmeup.ru/images/adsm/3/swagger.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>На этой странице перечислены все Endpoint’ы, методы работы с ними, возможные параметры и атрибуты и указано, какие из них обязательны. Кроме того описаны ожидаемые ответы.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/swagger_endpoints_and_methods.png" src="https://fs.linkmeup.ru/images/adsm/3/swagger_endpoints_and_methods.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>На этой же странице можно выполнять интерактивные запросы, кликнув на <strong>Try it out</strong>.</p>
+<p>По какой-от причине swagger в качестве Base URL берёт имя сервера без порта, поэтому функция Try it out не работает в моих примерах со Swagger’ом. Но вы можете попробовать это на собственной инсталляции.</p>
+<p>При нажатии на <strong>Execute</strong> Swagger UI сформирует строку curl, с помощью которой можно аналогичный запрос сделать из командной строки.</p>
+<p>В Swagger UI можно даже создать объект:</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/swagger_post.png" src="https://fs.linkmeup.ru/images/adsm/3/swagger_post.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>Для этого достаточно быть авторизованным пользователем, обладающим нужными правами.</p>
+<p>То, что мы видим на этой странице - это Swagger UI - документация, сгенерированная на основе спецификации API.</p>
+<div class="line-block">
+<div class="line">С трендами на микросервисную архитектуру всё более важным становится иметь стандартизированный API для взаимодействия между компонентами, эндпоинты и методы которого легко определить как человеку, так и приложению, не роясь в исходном коде или PDF-документации.</div>
+<div class="line">Поэтому разработчики сегодня всё чаще следуют парадигме <a class="reference external" href="https://medium.com/adobetech/three-principles-of-api-first-design-fa6666d9f694">API First</a><span class="link-target"> [https://medium.com/adobetech/three-principles-of-api-first-design-fa6666d9f694]</span>, когда сначала задумываются об API, а уже потом о реализации.</div>
+<div class="line">В этом дизайне сначала специфицируется API, а затем из него <strong>генерируются</strong> документация, клиентское приложение, серверная часть и необходимы тесты.</div>
+</div>
+<div class="line-block">
+<div class="line">Swagger - это фреймворк и язык спецификации (который ныне переименован в OpenAPI 2.0), позволяющие реализовать эту задачу.</div>
+<div class="line">Углубляться в него я не буду.</div>
+<div class="line">За бо́льшими деталями сюда:</div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://swagger.io/docs/specification/">Сайт Swagger</a><span class="link-target"> [https://swagger.io/docs/specification/]</span></p></li>
+<li><p><a class="reference external" href="https://justcodeit.ru/swagger-docs-dlya-api-na-laravel/">Пример использования</a><span class="link-target"> [https://justcodeit.ru/swagger-docs-dlya-api-na-laravel/]</span></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/OpenAPI_Specification">Wiki про Open API</a><span class="link-target"> [https://en.wikipedia.org/wiki/OpenAPI_Specification]</span></p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RESTful API</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="restful-api">
+<h1>RESTful API</h1>
+<p>Эта статья - одна из обещанных коротких заметок по ходу <a class="reference external" href="https://linkmeup.ru/adsm/">АДСМ</a><span class="link-target"> [https://linkmeup.ru/adsm/]</span>.
+Поскольку основным способом взаимодействия с NetBox будет RESTful API, я решил рассказать о нём отдельно.</p>
+<p>Воздаю хвалы архитекторам современного мира - у нас есть стандартизированные интерфейсы. Да их много - это минус, но они есть - это плюс.</p>
+<p>Эти интерфейсы взаимодействия обрели имя <strong>API - Application Programming Interface</strong>.</p>
+<p>Одним из таких интерфейсов является RESTful API, который мы будем использовать для работы с нашей IPAM/DCIM-системой в будущем.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/3/kdpv_rest.png" src="https://fs.linkmeup.ru/images/adsm/3/kdpv_rest.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>Если очень просто, то API даёт клиенту набор инструментов, через которые тот может управлять сервером. А клиентом может выступать по сути что угодно: веб-браузер, командная консоль, разработанное производителем приложение, или вообще любое другое приложение, у которого есть доступ к API.</p>
+<p>Например, в случае NetBox, добавить новое устройство в него можно следующими способами: через веб-браузер, отправив curl’ом запрос в консоли, использовать Postman, обратиться к библиотеке requests в питоне, воспользоваться SDK pynetbox или перейти в Swagger.</p>
+<p>Таким образом, один раз написав единый интерфейс, производитель навсегда освобождает себя от необходимости с каждым новым клиентом договариваться как его подключать (хотя, это самую малость лукавство).</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="rest.xhtml">REST, RESTful, API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="messages.xhtml">Структура сообщений HTTP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="messages.xhtml#id1">Стартовая строка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.xhtml#id4">Заголовки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.xhtml#id6">Тело HTTP-сообщения</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="methods.xhtml">Методы</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="methods.xhtml#http-get">HTTP GET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.xhtml#http-post">HTTP POST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.xhtml#http-put">HTTP PUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.xhtml#http-patch">HTTP PATCH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.xhtml#http-delete">HTTP DELETE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ways.xhtml">Способы работы с RESTful API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ways.xhtml#postman">Postman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ways.xhtml#python-requests">Python+requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ways.xhtml#python-netbox-sdk">Python+NetBox SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ways.xhtml#swagger">SWAGGER</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.xhtml">Заключение</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.xhtml#id3">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.xhtml#id5">Спасибы</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

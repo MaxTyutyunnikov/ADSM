@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Часть 0. Планирование</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Часть 0. Планирование</h1>
+<p>СДСМ закончился, а бесконтрольное желание писать - осталось.</p>
+<div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/0/kdpv.jpg" src="https://fs.linkmeup.ru/images/adsm/0/kdpv.jpg" style="width: 800px;" />
+</div>
+<div class="line-block">
+<div class="line">Долгие годы наш брат страдал от выполнения рутинной работы, скрещивал пальцы перед коммитом и недосыпал из-за ночных ролбэков.</div>
+<div class="line">Но тёмным временам приходит конец.</div>
+</div>
+<div class="line-block">
+<div class="line">Этой статьёй я начну серию о том, как <em>мне</em> видится автоматизация.</div>
+<div class="line">По ходу дела разберёмся с этапами автоматизации, хранением переменных, формализацией дизайна, с RestAPI, NETCONF, YANG, YDK и будем очень много программировать.</div>
+<div class="line"><em>Мне</em> означает, что а) это не объективная истина, б) не безоговорочно лучший подход в) мой взгляд даже в ходе движения от первой к последней статье может поменяться - честно говоря, от стадии черновика до публикации я переписывал всё полностью дважды.</div>
+</div>
+<p>АДСМ я попробую вести в формате, немного отличном от СДСМ. По-прежнему будут появляться большие обстоятельные номерные статьи, а между ними я буду публиковать небольшие заметки из повседневного опыта. Постараюсь тут бороться с перфекционизмом и не вылизывать каждую из них.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Как это забавно, что во второй раз приходится проходить один и тот же путь.</div>
+<div class="line">Сначала пришлось писать самому статьи про сети из-за того, что их не было в рунете.</div>
+<div class="line">Теперь я не смог найти всесторонний документ, который систематизировал бы подходы к автоматизации и на простых практических примерах разбирал вышеперечисленные технологии.</div>
+</div>
+<p>Возможно, я ошибаюсь, поэтому, кидайте ссылки на годные ресурсы. Впрочем это не изменит моей решимости писать, потому что, основная цель - это всё-таки научиться чему-то самому, а облегчить жизнь ближнему - это приятный бонус, который ласкает ген распространения опыта.</p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">Мы попробуем взять средних размеров дата-центр LAN DC и проработать всю схему автоматизации.</div>
+<div class="line">Делать некоторые вещи я буду практически впервые вместе с вами.</div>
+</div>
+<blockquote>
+<div><p>В описываемых тут идеях и инструментах я буду не оригинален. У Дмитрия Фиголя есть отличный <a class="reference external" href="https://www.youtube.com/watch?v=MLeiShwb7Qo&amp;list=PLSwGHYY8t8JiGI9powOXDHTAXDSs7FZqt">канал со стримами на эту тему</a><span class="link-target"> [https://www.youtube.com/watch?v=MLeiShwb7Qo&amp;list=PLSwGHYY8t8JiGI9powOXDHTAXDSs7FZqt]</span>.</p>
+<p>Статьи во многих аспектах будут с ними пересекаться.</p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">В  LAN DC 4 ДЦ, около 250 коммутаторов, полдюжины маршрутизаторов и пара файрволов.</div>
+<div class="line">Не фейсбук, но достаточно для того, чтобы глубоко задуматься об автоматизации.</div>
+<div class="line">Бытует, впрочем, мнение, что если у вас больше 1 устройства, уже нужна автоматизация.</div>
+<div class="line">На самом деле тяжело представить, что кто-то сейчас может жить без хотя бы пачки наколеночных скриптов.</div>
+<div class="line">Хотя я слышал, что есть такие конторы, где учёт IP-адресов ведётся в экселе, а каждое из тысяч сетевых устройств настраивается вручную и имеет свою неповторимую конфигурацию. Это, конечно, можно выдать за современное искусство, но чувства инженера точно будут оскорблены.</div>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="goals.xhtml">Цели</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="goals.xhtml#id2">Сеть - как единый организм</a></li>
+<li class="toctree-l2"><a class="reference internal" href="goals.xhtml#id3">Тестирование конфигурации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="goals.xhtml#id5">Версионирование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="goals.xhtml#id7">Мониторинг и самовосстановление сервисов</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools.xhtml">Средства</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#id2">Компонент 1. Инвентарная система</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#ip">Компонент 2. Система управления IP-пространством</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#id3">Компонент 3. Система описания сетевых сервисов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#id4">Компонент 4. Механизм инициализации устройства</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#id5">Компонент 5. Вендор-агностик конфигурационная модель</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#id6">Компонент 6. Вендор-интерфейс специфичный драйвер</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#id7">Компонент 7. Механизм доставки конфигурации на устройство</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#ci-cd">Компонент 8. CI/CD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#id8">Компонент 9. Система резервного копирования и поиска отклонений</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.xhtml#id9">Компонент 10. Система мониторинга</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.xhtml">Заключение</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.xhtml#id2">Полезные ссылки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.xhtml#id4">Спасибы</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

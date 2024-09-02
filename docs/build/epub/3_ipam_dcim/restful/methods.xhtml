@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Методы</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Методы</h1>
+<p>Как вы уже поняли, для работы с WEB-сервисами HTTP использует методы. То же самое касается и RESTful API.
+Возможные сценарии описываются термином <strong>CRUD - Create, Read, Update, Delete</strong>.
+Вот список наиболее популярных методов HTTP, реализующих CRUD:</p>
+<ul class="simple">
+<li><p>HTTP GET</p></li>
+<li><p>HTTP POST</p></li>
+<li><p>HTTP PUT</p></li>
+<li><p>HTTP DELETE</p></li>
+<li><p>HTTP PATCH</p></li>
+</ul>
+<p>Методы также называются <strong>глаголами</strong>, поскольку указывают на то, какое действие производится.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">Полный список методов</a><span class="link-target"> [https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods]</span>.</p>
+<p>Давайте на примере NetBox разберёмся с каждым из них.</p>
+<div class="section" id="http-get">
+<h2>HTTP GET</h2>
+<p>Это метод для получения информации.</p>
+<p>Так, например, мы забираем список устройств:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Метод GET <strong>безопасный</strong> (<strong>safe</strong>), поскольку не меняет данные, а только запрашивает.
+Он <strong>идемпотентный</strong> с той точки зрения, что один и тот же запрос всегда возвращает одинаковый результат (до тех пор, пока сами данные не поменялись).</p>
+<div class="line-block">
+<div class="line">На GET сервер возвращает сообщение с HTTP-кодом и телом ответа (<strong>response code</strong> и <strong>response body</strong>).</div>
+<div class="line">То есть если всё OK, то код ответа - 200 (OK).</div>
+<div class="line">Если URL не найден - 404 (NOT FOUND).</div>
+<div class="line">Если что-то не так с самим сервером или компонентами, это может быть 500 (SERVER ERROR) или 502 (BAD GATEWAY).</div>
+<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Все возможные коды ответов</a><span class="link-target"> [https://en.wikipedia.org/wiki/List_of_HTTP_status_codes]</span>.</div>
+</div>
+<div class="line-block">
+<div class="line">Тело возвращается в формате JSON или XML.</div>
+<div class="line"><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng">Дамп транзакции</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_all_devices.pcapng]</span>.</div>
+</div>
+<p>Давайте ещё пару примеров. Теперь мы запросим информацию по конкретному устройству по его имени.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Здесь, чтобы задать условия поиска в URI я ещё указал атрибут объекта (параметр <strong>name</strong> и его значение <strong>mlg-leaf-0</strong>). Как вы можете видеть, перед условием и после слэша идёт знак <strong>«?»</strong>, а имя и значение разделяются знаком <strong>«=»</strong>.</p>
+<p>Так выглядит запрос.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET<span class="w"> </span>/api/dcim/devices/?name<span class="o">=</span>mlg-leaf-0<span class="w"> </span>HTTP/1.1
+Host:<span class="w"> </span>netbox.linkmeup.ru:45127
+User-Agent:<span class="w"> </span>curl/7.54.0
+Accept:<span class="w"> </span>application/json<span class="p">;</span><span class="w"> </span><span class="nv">indent</span><span class="o">=</span><span class="m">4</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_by_name.pcapng">Дамп транзакции</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_by_name.pcapng]</span>.</p>
+<p>Если нужно задать пару условий, то запрос будет выглядеть так:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?role=leaf&amp;site=mlg&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Здесь мы запросили все устройства с ролью <strong>leaf</strong>, расположенные на сайте <strong>mlg</strong>.
+То есть два условия отделяются друг от друга знаком <strong>«&amp;»</strong>.</p>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_double_conditions.pcapng">Дамп транзакции</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_double_conditions.pcapng]</span>.</p>
+<div class="line-block">
+<div class="line">Из любопытного и приятного - если через «&amp;» задать два условия с одним именем, то между ними будет на самом деле не логическое «И», а логическое «ИЛИ».</div>
+<div class="line">То есть вот такой запрос и в самом деле вернёт два объекта: mlg-leaf-0 и mlg-spine-0</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?name=mlg-leaf-0&amp;name=mlg-spine-0&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_or_operand.pcapng">Дамп транзакции</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_device_with_or_operand.pcapng]</span>.</p>
+<p>Попробуем обратиться к несуществующему URL.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/IDGAF/&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_not_found.pcapng">Трамп транзакции</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_get_not_found.pcapng]</span>.</p>
+</div>
+<div class="section" id="http-post">
+<h2>HTTP POST</h2>
+<div class="line-block">
+<div class="line">POST используется для создания нового объекта в наборе объектов. Или более сложным языком: для создания нового подчинённого ресурса.</div>
+<div class="line">То есть, если есть набор devices, то POST позволяет создать новый объект device внутри devices.</div>
+</div>
+<p>Выберем тот же Endpoint и с помощью POST создадим новое устройство.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;accept: application/json&quot;</span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span><span class="w"> </span><span class="se">\</span>
+-d<span class="w"> </span><span class="s2">&quot;{ \&quot;name\&quot;: \&quot;just a simple russian girl\&quot;, \&quot;device_type\&quot;: 1, \&quot;device_role\&quot;: 1, \&quot;site\&quot;: 3,       \&quot;rack\&quot;: 3, \&quot;position\&quot;: 5, \&quot;face\&quot;: \&quot;front\&quot;}&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Здесь уже появляется заголовок <strong>Authorization</strong>, содержащий токен, который авторизует запрос на запись, а после директивы <strong>-d</strong> расположен JSON с параметрами создаваемого устройства:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;just a simple russian girl&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;device_type&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;device_role&quot;</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">&quot;site&quot;</span>:<span class="w"> </span><span class="m">3</span>,
+<span class="w">    </span><span class="s2">&quot;rack&quot;</span>:<span class="w"> </span><span class="m">3</span>,
+<span class="w">    </span><span class="s2">&quot;position&quot;</span>:<span class="w"> </span><span class="m">5</span>,
+<span class="w">    </span><span class="s2">&quot;face&quot;</span>:<span class="w"> </span><span class="s2">&quot;front&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+<p>Запрос у вас <strong>не сработает</strong>, потому что токен уже не валиден - не пытайтесь записать в мой NetBox.</p>
+</div></blockquote>
+<p>В ответ приходит HTTP-ответ с кодом 201 (CREATED) и JSON’ом в теле сообщения, где сервер возвращает все параметры о созданном устройстве.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HTTP/1.1<span class="w"> </span><span class="m">201</span><span class="w"> </span>Created
+Server:<span class="w"> </span>nginx/1.14.0<span class="w"> </span><span class="o">(</span>Ubuntu<span class="o">)</span>
+Date:<span class="w"> </span>Sat,<span class="w"> </span><span class="m">18</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2020</span><span class="w"> </span><span class="m">11</span>:00:22<span class="w"> </span>GMT
+Content-Type:<span class="w"> </span>application/json
+Content-Length:<span class="w"> </span><span class="m">1123</span>
+Connection:<span class="w"> </span>keep-alive
+
+JSON
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_post_new_device.pcapng">Дамп транзакции</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_post_new_device.pcapng]</span>.</p>
+<p>Теперь новым запросом с методом GET можно его увидеть в выдаче:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/?q=russian&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Accept: application/json; indent=4&quot;</span>
+</pre></div>
+</div>
+<p>«q» в NetBox’е позволяет найти все объекты, содержащие в своём названии строку, идущую дальше.</p>
+</div></blockquote>
+<p>POST, очевидно, не является <strong>ни безопасным, ни идемпотентным</strong> - он наверняка меняет данные, и дважды выполненный запрос приведёт или к созданию второго такого же объекта, или к ошибке.</p>
+</div>
+<div class="section" id="http-put">
+<h2>HTTP PUT</h2>
+<div class="line-block">
+<div class="line">Это метод для изменения существующего объекта. Endpoint для PUT выглядит иначе, чем для POST - в нём теперь содержится конкретный объект.</div>
+<div class="line">PUT может возвращать коды 201 или 200.</div>
+</div>
+<div class="line-block">
+<div class="line">Важный момент с этим методом: нужно передавать все обязательные атрибуты, поскольку PUT замещает собой старый объект.</div>
+<div class="line">Поэтому, если например, просто попытаться добавить атрибут asset_tag нашему новому устройству, то получим ошибку:</div>
+</div>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/18/&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;accept: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span><span class="w"> </span><span class="se">\</span>
+-d<span class="w"> </span><span class="s2">&quot;{ \&quot;asset_tag\&quot;: \&quot;12345678\&quot;}&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Вот такую:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span><span class="s2">&quot;device_type&quot;</span>:<span class="o">[</span><span class="s2">&quot;This field is required.&quot;</span><span class="o">]</span>,<span class="s2">&quot;device_role&quot;</span>:<span class="o">[</span><span class="s2">&quot;This field is required.&quot;</span><span class="o">]</span>,<span class="s2">&quot;site&quot;</span>:<span class="o">[</span><span class="s2">&quot;This field is required.&quot;</span><span class="o">]}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Но если добавить недостающие поля, то всё сработает:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/18/&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;accept: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span><span class="w"> </span><span class="se">\</span>
+-d<span class="w"> </span><span class="s2">&quot;{ \&quot;name\&quot;: \&quot;just a simple russian girl\&quot;, \&quot;device_type\&quot;: 1, \&quot;device_role\&quot;: 1, \&quot;site\&quot;: 3,       \&quot;rack\&quot;: 3, \&quot;position\&quot;: 5, \&quot;face\&quot;: \&quot;front\&quot;, \&quot;asset_tag\&quot;: \&quot;12345678\&quot;}&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_put_asset_tag.pcapng">Трап транзакции</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_put_asset_tag.pcapng]</span>.</p>
+<p>Обратите внимание на URL здесь - теперь он включает ID устройства, которое мы хотим менять (<strong>18</strong>).</p>
+</div>
+<div class="section" id="http-patch">
+<h2>HTTP PATCH</h2>
+<div class="line-block">
+<div class="line">Этот метод используется для частичного изменения ресурса.</div>
+<div class="line">WAT? Спросите вы, а как же PUT?</div>
+</div>
+<p>PUT - изначально существовавший в стандарте метод, предполагающий полную замену изменяемого объекта. Соответственно в методе PUT, как я и писал выше, придётся указать даже те атрибуты объекта, которые не меняются.</p>
+<p>А PATCH был добавлен позже и позволяет указать только те атрибуты, которые действительно меняются.</p>
+<p>Например:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>PATCH<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/18/&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;accept: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span><span class="w"> </span><span class="se">\</span>
+-d<span class="w"> </span><span class="s2">&quot;{ \&quot;serial\&quot;: \&quot;BREAKINGBAD\&quot;}&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Здесь также в URL указан ID устройства, но для изменения только один атрибут <strong>serial</strong>.</p>
+<p><a class="reference external" href="https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_patch_serial.pcapng">Труп транзакции</a><span class="link-target"> [https://github.com/eucariot/ADSM/blob/master/docs/source/3_ipam/dumps/http_patch_serial.pcapng]</span>.</p>
+</div>
+<div class="section" id="http-delete">
+<h2>HTTP DELETE</h2>
+<p>Очевидно, удаляет объект.</p>
+<p>Пример.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/21/&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;accept: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Метод DELETE идемпотентен с той точки зрения, что повторно выполненный запрос уже ничего не меняет в списке ресурсов (но вернёт код 404 (NOT FOUND).</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span><span class="s2">&quot;http://netbox.linkmeup.ru:45127/api/dcim/devices/21/&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;accept: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">&quot;Authorization: TOKEN a9aae70d65c928a554f9a038b9d4703a1583594f&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span><span class="s2">&quot;detail&quot;</span>:<span class="s2">&quot;Not found.&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

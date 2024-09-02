@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Виртуальная коммутация</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Виртуальная коммутация</h1>
+<p>Если есть виртуальная машина, а в ней есть виртуальный интерфейс, то, очевидно, возникает задача передачи пакета из одной VM в другую. В Linux-based гипервизорах (KVM, например) эта задача может решаться с помощью Linux bridge, однако, большое распространение получил проект <a href="#id2"><span class="problematic" id="id3">`</span></a>Open vSwitch &lt;<a class="reference external" href="https://www.openvswitch.org">https://www.openvswitch.org</a>&gt;`_(OVS).
+Есть несколько основных функциональностей, которые позволили OVS широко распространиться и стать de-facto основным методом коммутации пакетов, который используется во многих платформах облачных вычислений(например, Openstack) и виртуализированных решениях.</p>
+<ul class="simple">
+<li><p>Передача сетевого состояния - при миграции VM между гипервизорами возникает задача передачи ACL, QoSs, L2/L3 forwarding-таблиц и прочего. И OVS умеет это.</p></li>
+<li><p>Реализация механизма передачи пакетов (datapath) как в kernel, так и в user-space</p></li>
+<li><p>CUPS (Control/User-plane separation) архитектура - позволяет перенести функциональность обработки пакетов на специализированный chipset (Broadcom и Marvell chipset, например, могут такое), управляя им через control-plane OVS.</p></li>
+<li><p>Поддержка методов удаленного управления трафиком - протокол OpenFlow (привет, SDN).</p></li>
+</ul>
+<p>Архитектура OVS на первый взгляд выглядит довольно страшно, но это только на первый взгляд.</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/1/1/ovs_architecture_01.png" src="https://fs.linkmeup.ru/images/adsm/1/1/ovs_architecture_01.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>Для работы с OVS нужно понимать следующее:</p>
+<ul class="simple">
+<li><p><strong>Datapath</strong> - тут обрабатываются пакеты. Аналогия - switch-fabric железного коммутатора. Datapath включает в себя приём пакетов, обработку заголовков, поиск соответствий по таблице flow, который в Datapath уже запрограммирован. Если OVS работает в kernel, то выполнен в виде модуля ядра. Если OVS работает в user-space, то это процесс в user-space Linux.</p></li>
+<li><p><strong>vswitchd</strong> и <strong>ovsdb</strong> - демоны в user-space, то что реализует непосредственно сам функциональность коммутатора, хранит конфигурацию, устанавливает flow в datapath и программирует его.</p></li>
+<li><p>Набор инструментов для настройки и траблшутинга OVS - <strong>ovs-vsctl, ovs-dpctl, ovs-ofctl, ovs-appctl</strong>. Все то, что нужно, чтобы прописать в ovsdb конфигурацию портов, прописать какой flow куда должен коммутироваться, собрать статистику и прочее. Добрые люди <a class="reference external" href="http://therandomsecurityguy.com/openvswitch-cheat-sheet/">написали статью</a><span class="link-target"> [http://therandomsecurityguy.com/openvswitch-cheat-sheet/]</span> по этому поводу.</p></li>
+</ul>
+<p><strong>Каким же образом сетевое устройство виртуальной машины оказывается в OVS?</strong></p>
+<p>Для решения данной задачи нам необходимо каким-то образом связать между собой виртуальный интерфейс, находящийся в user-space операционной системы с datapath OVS, находящимся в kernel.</p>
+<p>В операционной системе Linux передача пакетов между kernel и user-space-процессами осуществляется посредством двух специальных интерфейсов. Оба интерфейса использует запись/чтение пакета в/из специальный файл для передачи пакетов из user-space-процесса в kernel и обратно - file descriptor (FD) (это одна из причин низкой производительности виртуальной коммутации, если datapath OVS находится в kernel - каждый пакет требуется записать/прочесть через FD)</p>
+<ul class="simple">
+<li><p><strong>TUN</strong> (tunnel) - устройство, работающее в L3 режиме и позволяющее записывать/считывать только IP пакеты в/из FD.</p></li>
+<li><p><strong>TAP</strong> (network tap) - то же самое, что и tun интерфейс + умеет производить операции с Ethernet-фреймами, т.е. работать в режиме L2.</p></li>
+</ul>
+<p>&lt;/ul&gt;</p>
+<blockquote>
+<div><div class="figure align-center">
+<img alt="https://fs.linkmeup.ru/images/adsm/1/1/virtual-devices-all.png" src="https://fs.linkmeup.ru/images/adsm/1/1/virtual-devices-all.png" style="width: 800px;" />
+</div>
+</div></blockquote>
+<p>Именно поэтому при запущенной виртуальной машине в Host OS можно увидеть созданные TAP-интерфейсы командой <em>ip link</em> или <em>ifconfig</em> - это «ответная» часть virtio, которая «видна» в kernel Host OS. Также стоит обратить внимание, что TAP-интерфейс имеет тот же MAC-адрес что и virtio-интерфейс в виртуальной машине.</p>
+<p>TAP-интерфейс может быть добавлен в OVS с помощью команд <em>ovs-vsctl</em> - тогда любой пакет, скоммутированный OVS в TAP-интерфейс, будет передан в виртуальную машину через file descriptor.</p>
+<blockquote>
+<div><p>Реальный порядок действий при создании виртуальной машины может быть разным, т.е. сначала можно создать OVS bridge, потом указать виртуальной машине создать интерфейс, соединенный с этим OVS, а можно и наоборот.</p>
+</div></blockquote>
+<p>Теперь, если нам необходимо получить возможность передачи пакетов между двумя и более виртуальными машинами, которые запущены на одном гипервизоре, нам потребуется лишь создать OVS bridge и добавить в него TAP-интерфейсы с помощью команд ovs-vsctl. Какие именно команды для этого нужны легко гуглится.</p>
+<p>На гипервизоре может быть несколько OVS bridges, например, так работает Openstack Neutron, или же виртуальные машины могут находиться в разных namespace для реализации multi-tenancy.</p>
+<p><strong>А если виртуальные машины находятся в разных OVS bridges?</strong></p>
+<p>Для решения данной задачи существует другой инструмент - <strong>veth pair</strong>. Veth pair может быть представлен как пара сетевых интерфейсов, соединенных кабелем - все то, что «влетает» в один интерфейс, «вылетает» из другого. Veth pair используется для соединения между собой нескольких OVS bridges или Linux bridges. Другой важный момент что части veth pair могут находиться в разных namespace Linux OS, то есть veth pair может быть также использован для связи namespace между собой на сетевом уровне.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>
